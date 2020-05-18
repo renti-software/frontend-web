@@ -15,6 +15,7 @@ import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
+import {MdSearch} from "react-icons/md";
 
 function Copyright() {
   return (
@@ -93,7 +94,7 @@ export default function Marketplace() {
                 />
                 <InputGroup.Append>
                   <Button variant="outlined-primary" class="btn btn-primary">
-                    Button
+                    <MdSearch/>
                   </Button>
                 </InputGroup.Append>
               </InputGroup>
