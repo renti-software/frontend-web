@@ -84,15 +84,17 @@ export default function Marketplace() {
             <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
               Renti Marketplace
             </Typography>
-            <div>
-              <InputGroup class="App-header">
+            <div class="row">
+              <InputGroup className="mb-3">
                 <FormControl
-                  placeholder="Recipient's username"
-                  aria-label="Recipient's username"
+                  placeholder="Search..."
+                  aria-label="Search product"
                   aria-describedby="basic-addon2"
                 />
                 <InputGroup.Append>
-                  <Button variant="outline-primary">Button</Button>
+                  <Button variant="outlined-primary" class="btn btn-primary">
+                    Button
+                  </Button>
                 </InputGroup.Append>
               </InputGroup>
             </div>
