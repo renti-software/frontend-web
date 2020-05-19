@@ -69,6 +69,7 @@ export default function Marketplace() {
   const classes = useStyles();
   let align = {textAlign: 'left'};
 
+  let padding = {marginLeft: 12};
   return (
     <React.Fragment>
       <CssBaseline/>
@@ -116,12 +117,18 @@ export default function Marketplace() {
                   />
                   <Row>
                     <CardContent style={align}>
-                      <Typography gutterBottom variant="h5" component="h2">
+                      <Typography gutterBottom variant="h5" component="h2" style={padding}>
                         GoPro
                       </Typography>
-                      <Typography>
+                      <Typography style={padding}>
                         Aveiro, Portugal
                       </Typography>
+                    </CardContent>
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="h3" style={padding}>
+                        30.00€
+                      </Typography>
+
                     </CardContent>
                   </Row>
                   <CardActions>
