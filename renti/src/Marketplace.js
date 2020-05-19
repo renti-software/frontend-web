@@ -15,7 +15,7 @@ import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
-import {MdSearch} from "react-icons/md";
+import {MdSearch, MdShoppingCart} from "react-icons/md";
 import Row from "react-bootstrap/Row";
 
 function Copyright() {
@@ -137,10 +137,7 @@ export default function Marketplace() {
                   </Row>
                   <CardActions>
                     <Button size="small" color="primary">
-                      View
-                    </Button>
-                    <Button size="small" color="primary">
-                      Edit
+                      <MdShoppingCart/>
                     </Button>
                   </CardActions>
                 </Card>
