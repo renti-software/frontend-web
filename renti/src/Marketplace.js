@@ -81,19 +81,19 @@ export default function Marketplace() {
       <main>
         {/* Hero unit */}
         <div className={classes.heroContent}>
-          <Container maxWidth="sm">
+          <Container maxWidth="md">
             <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
               Renti Marketplace
             </Typography>
-            <div class="row">
+            <div>
               <InputGroup className="mb-3">
                 <FormControl
-                  placeholder="Search..."
+                  placeholder="Search product or equipment..."
                   aria-label="Search product"
                   aria-describedby="basic-addon2"
                 />
                 <InputGroup.Append>
-                  <Button variant="outlined-primary" class="btn btn-primary">
+                  <Button variant="primary">
                     <MdSearch/>
                   </Button>
                 </InputGroup.Append>
