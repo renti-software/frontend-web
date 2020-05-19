@@ -89,11 +89,11 @@ export default function Marketplace() {
               <InputGroup className="mb-3">
                 <FormControl
                   placeholder="Search product or equipment..."
-                  aria-label="Search product"
+                  aria-label="Search product or equipment..."
                   aria-describedby="basic-addon2"
                 />
                 <InputGroup.Append>
-                  <Button variant="primary">
+                  <Button variant="primary" class="btn btn-primary">
                     <MdSearch/>
                   </Button>
                 </InputGroup.Append>
