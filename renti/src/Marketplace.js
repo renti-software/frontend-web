@@ -16,6 +16,7 @@ import Link from '@material-ui/core/Link';
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import {MdSearch} from "react-icons/md";
+import Row from "react-bootstrap/Row";
 
 function Copyright() {
   return (
@@ -66,6 +67,7 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export default function Marketplace() {
   const classes = useStyles();
+  let align = {textAlign: 'left'};
 
   return (
     <React.Fragment>
@@ -112,14 +114,16 @@ export default function Marketplace() {
                     image="https://source.unsplash.com/random"
                     title="Image title"
                   />
-                  <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Heading
-                    </Typography>
-                    <Typography>
-                      This is a media card. You can use this section to describe the content.
-                    </Typography>
-                  </CardContent>
+                  <Row>
+                    <CardContent style={align}>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        GoPro
+                      </Typography>
+                      <Typography>
+                        Aveiro, Portugal
+                      </Typography>
+                    </CardContent>
+                  </Row>
                   <CardActions>
                     <Button size="small" color="primary">
                       View
