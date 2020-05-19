@@ -57,6 +57,10 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     flexGrow: 1,
   },
+  cardDescription: {
+    textAlign: 'left',
+    marginLeft: 12
+  },
   footer: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(6),
@@ -67,7 +71,7 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export default function Marketplace() {
   const classes = useStyles();
-  let align = {textAlign: 'left'};
+  let alignLeft = {textAlign: 'left'};
 
   let padding = {marginLeft: 12};
   return (
@@ -116,17 +120,17 @@ export default function Marketplace() {
                     title="Image title"
                   />
                   <Row>
-                    <CardContent style={align}>
-                      <Typography gutterBottom variant="h5" component="h2" style={padding}>
+                    <CardContent className={classes.cardContent}>
+                      <Typography gutterBottom variant="h5" component="h2">
                         GoPro
                       </Typography>
-                      <Typography style={padding}>
+                      <Typography gutterBottom>
                         Aveiro, Portugal
                       </Typography>
                     </CardContent>
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="h3" style={padding}>
-                        30.00€
+                    <CardContent className={classes.cardContent}>
+                      <Typography gutterBottom>
+                        30.00€ /day
                       </Typography>
 
                     </CardContent>
