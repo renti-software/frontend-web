@@ -16,7 +16,8 @@ import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
-import {MdPhone, MdSearch} from "react-icons/md";
+import {MdPhone, MdPlace, MdSearch} from "react-icons/md";
+import {IoMdCalendar} from 'react-icons/io';
 import Row from "react-bootstrap/Row";
 
 function Copyright() {
@@ -107,6 +108,31 @@ export default function Marketplace() {
                 </InputGroup.Append>
               </InputGroup>
             </div>
+            {/*TODO: add filter here*/}
+            <InputGroup className="mb-md-3">
+              <InputGroup.Prepend>
+                <InputGroup.Text>
+                  <MdPlace/>
+                </InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl
+                placeholder="Local"/>
+              <InputGroup.Prepend>
+                <InputGroup.Text>
+                  <IoMdCalendar/>
+                </InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl
+                placeholder="From"/>
+              <InputGroup.Prepend>
+                <InputGroup.Text>
+                  <IoMdCalendar/>
+                </InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl
+                placeholder="To"/>
+
+            </InputGroup>
           </Container>
         </div>
         <Container className={classes.cardGrid} maxWidth="md">
