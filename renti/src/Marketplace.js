@@ -109,7 +109,7 @@ export default function Marketplace() {
               </InputGroup>
             </div>
             {/*TODO: add filter here*/}
-            <InputGroup className="mb-md-3">
+            <InputGroup className="mb-3" size="sm">
               <InputGroup.Prepend>
                 <InputGroup.Text>
                   <MdPlace/>
