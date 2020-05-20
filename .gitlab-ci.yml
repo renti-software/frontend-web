@@ -25,6 +25,8 @@ test:
   stage: Test
   script:
     - echo "Testing..."
+    - cd renti/
+    - npm test
 
 docker:
   stage: Docker
