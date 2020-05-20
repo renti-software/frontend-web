@@ -1,5 +1,5 @@
 import React from 'react';
-import './Styles.js';
+import colors from './Colors';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import CameraIcon from '@material-ui/icons/PhotoCamera';
@@ -141,7 +141,7 @@ export default function Marketplace() {
                       </Typography>
                     </CardContent >
                       <CardActions style={{alignItems:'center',justifyContent:'center',alignContent:'center'}}> 
-                      <Button size="large" color="#d3d3d3">
+                      <Button size="large" style={{color:colors.primary}}>
                         <MdPhone/>
                       </Button>
                     </CardActions>
