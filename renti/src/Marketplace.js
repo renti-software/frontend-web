@@ -1,4 +1,5 @@
 import React from 'react';
+import './Styles.css';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import CameraIcon from '@material-ui/icons/PhotoCamera';
@@ -15,7 +16,7 @@ import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
-import {MdSearch, MdShoppingCart} from "react-icons/md";
+import {MdSearch, MdShoppingCart, MdPhone} from "react-icons/md";
 import Row from "react-bootstrap/Row";
 
 function Copyright() {
@@ -120,26 +121,31 @@ export default function Marketplace() {
                     title="Image title"
                   />
                   <Row>
-                    <CardContent className={classes.cardContent}>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        GoPro
+                    <CardContent style={{textAlign:'center'}} className={classes.cardContent}>
+                      <Typography gutterBottom variant="h5" component="h3">
+                        Fato Homem - XL
                       </Typography>
-                      <Typography gutterBottom>
-                        Aveiro, Portugal
-                      </Typography>
-                    </CardContent>
-                    <CardContent className={classes.cardContent}>
-                      <Typography gutterBottom>
-                        30.00€ /day
-                      </Typography>
-
                     </CardContent>
                   </Row>
-                  <CardActions>
-                    <Button size="small" color="primary">
-                      <MdShoppingCart/>
-                    </Button>
-                  </CardActions>
+                  <Row>
+                    <CardContent style={{textAlign:'center'}} className={classes.cardContent}>
+                      <Typography gutterBottom>
+                        Águeda, Aveiro
+                      </Typography>
+                    </CardContent>
+                  </Row>
+                  <Row style={{textAlign:'center'}}> 
+                    <CardContent  className={classes.cardContent}>
+                      <Typography gutterBottom>
+                        20.00€ /day
+                      </Typography>
+                    </CardContent >
+                      <CardActions style={{alignItems:'center',justifyContent:'center',alignContent:'center'}}> 
+                      <Button size="large" color="secondary">
+                        <MdPhone/>
+                      </Button>
+                    </CardActions>
+                  </Row>
                 </Card>
               </Grid>
             ))}
