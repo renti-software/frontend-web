@@ -1,4 +1,5 @@
 import React from 'react';
+import colors from './Colors';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import CameraIcon from '@material-ui/icons/PhotoCamera';
@@ -15,7 +16,8 @@ import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
-import {MdSearch} from "react-icons/md";
+import {MdSearch, MdShoppingCart, MdPhone} from "react-icons/md";
+import Row from "react-bootstrap/Row";
 
 function Copyright() {
   return (
@@ -56,6 +58,10 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     flexGrow: 1,
   },
+  cardDescription: {
+    textAlign: 'left',
+    marginLeft: 12
+  },
   footer: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(6),
@@ -66,7 +72,9 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export default function Marketplace() {
   const classes = useStyles();
+  let alignLeft = {textAlign: 'left'};
 
+  let padding = {marginLeft: 12};
   return (
     <React.Fragment>
       <CssBaseline/>
@@ -112,22 +120,32 @@ export default function Marketplace() {
                     image="https://source.unsplash.com/random"
                     title="Image title"
                   />
-                  <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Heading
-                    </Typography>
-                    <Typography>
-                      This is a media card. You can use this section to describe the content.
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small" color="primary">
-                      View
-                    </Button>
-                    <Button size="small" color="primary">
-                      Edit
-                    </Button>
-                  </CardActions>
+                  <Row>
+                    <CardContent style={{textAlign:'center'}} className={classes.cardContent}>
+                      <Typography gutterBottom variant="h5" component="h3">
+                        Fato Homem - XL
+                      </Typography>
+                    </CardContent>
+                  </Row>
+                  <Row>
+                    <CardContent style={{textAlign:'center'}} className={classes.cardContent}>
+                      <Typography gutterBottom>
+                        Águeda, Aveiro
+                      </Typography>
+                    </CardContent>
+                  </Row>
+                  <Row style={{textAlign:'center'}}> 
+                    <CardContent  className={classes.cardContent}>
+                      <Typography gutterBottom>
+                        20.00€ /day
+                      </Typography>
+                    </CardContent >
+                      <CardActions style={{alignItems:'center',justifyContent:'center',alignContent:'center'}}> 
+                      <Button size="large" style={{color:colors.primary}}>
+                        <MdPhone/>
+                      </Button>
+                    </CardActions>
+                  </Row>
                 </Card>
               </Grid>
             ))}
