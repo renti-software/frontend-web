@@ -108,7 +108,6 @@ export default function Marketplace() {
                 </InputGroup.Append>
               </InputGroup>
             </div>
-            {/*TODO: add filter here*/}
             <InputGroup className="mb-3" size="sm">
               <InputGroup.Prepend>
                 <InputGroup.Text>
