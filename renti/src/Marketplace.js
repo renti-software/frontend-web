@@ -16,7 +16,7 @@ import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
-import {MdSearch, MdShoppingCart, MdPhone} from "react-icons/md";
+import {MdPhone, MdSearch} from "react-icons/md";
 import Row from "react-bootstrap/Row";
 
 function Copyright() {
@@ -120,28 +120,24 @@ export default function Marketplace() {
                     image="https://source.unsplash.com/random"
                     title="Image title"
                   />
-                  <Row>
-                    <CardContent style={{textAlign:'center'}} className={classes.cardContent}>
-                      <Typography gutterBottom variant="h5" component="h3">
-                        Fato Homem - XL
-                      </Typography>
-                    </CardContent>
-                  </Row>
-                  <Row>
-                    <CardContent style={{textAlign:'center'}} className={classes.cardContent}>
-                      <Typography gutterBottom>
-                        Águeda, Aveiro
-                      </Typography>
-                    </CardContent>
-                  </Row>
-                  <Row style={{textAlign:'center'}}> 
-                    <CardContent  className={classes.cardContent}>
+                  <CardContent style={{textAlign: 'center'}} className={classes.cardContent}>
+                    <Typography gutterBottom variant="h5" component="h3">
+                      Fato Homem - XL
+                    </Typography>
+                  </CardContent>
+                  <CardContent style={{textAlign: 'center'}} className={classes.cardContent}>
+                    <Typography gutterBottom>
+                      Águeda, Aveiro
+                    </Typography>
+                  </CardContent>
+                  <Row style={{textAlign: 'center'}}>
+                    <CardContent className={classes.cardContent}>
                       <Typography gutterBottom>
                         20.00€ /day
                       </Typography>
-                    </CardContent >
-                      <CardActions style={{alignItems:'center',justifyContent:'center',alignContent:'center'}}> 
-                      <Button size="large" style={{color:colors.primary}}>
+                    </CardContent>
+                    <CardActions style={{alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
+                      <Button size="large" style={{color: colors.primary}}>
                         <MdPhone/>
                       </Button>
                     </CardActions>
