@@ -1,5 +1,8 @@
 FROM node
 
+ARG REACT_APP_API_IP
+ENV REACT_APP_API_IP=${REACT_APP_API_IP}
+
 # set working directory
 WORKDIR /app
 
@@ -14,6 +17,8 @@ RUN yarn install
 RUN yarn global add serve
 
 RUN yarn run build # compile
+
+RUN echo $REACT_APP_API_IP
 
 # start app
 # CMD ["npm", "start"]
