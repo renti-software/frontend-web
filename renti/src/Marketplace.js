@@ -115,7 +115,7 @@ export default function Marketplace() {
   return (
     <React.Fragment>
       <CssBaseline/>
-      <AppBar position="relative">
+      <AppBar position="relative" style={{backgroundColor:colors.primary}}>
         <Toolbar>
           <CameraIcon className={classes.icon}/>
           <Typography variant="h6" color="inherit" noWrap>
@@ -138,7 +138,7 @@ export default function Marketplace() {
                   aria-describedby="basic-addon2"
                 />
                 <InputGroup.Append>
-                  <Button variant="primary" class="btn btn-primary">
+                  <Button variant="primary" class="btn btn-primary" style={{backgroundColor:colors.primary}}>
                     <MdSearch/>
                   </Button>
                 </InputGroup.Append>
