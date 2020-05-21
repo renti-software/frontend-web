@@ -66,9 +66,10 @@ export default function Marketplace() {
 
   function makeProductRequest() {
     fetch(`${API_URL}/products`)
-      .then(res => res.json())
-      .then(
-        (result) => {
+      .then(res => {
+        if (!res.ok) throw new Error(res.status)
+      })
+      .then( result => {
           console.log(`Products fetched: ${result}`)
           setCards(result)
         },
