@@ -25,11 +25,8 @@ test:
   stage: Test
   script:
     - echo "Testing..."
-<<<<<<< HEAD
     # - cd renti/
     # - npm test
-=======
->>>>>>> 870f15ec300456913da899aae753142120713f12
 
 docker:
   stage: Docker
