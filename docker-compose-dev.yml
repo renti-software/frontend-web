@@ -21,7 +21,7 @@ services:
     build: 
       context: .
       args:
-        REACT_APP_API_IP: '192.168.160.62'
+        REACT_APP_API_IP: 'localhost'
     ports:
       - "3000:3000"
     depends_on:
