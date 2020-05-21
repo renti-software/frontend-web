@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import colors from './Colors';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
-import CameraIcon from '@material-ui/icons/PhotoCamera';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -13,25 +12,12 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Link from '@material-ui/core/Link';
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import {MdPhone, MdPlace, MdSearch} from "react-icons/md";
-import {IoMdCalendar} from 'react-icons/io';
+import {IoMdPricetag} from 'react-icons/io';
+import {FaGitlab} from 'react-icons/fa';
 import Row from "react-bootstrap/Row";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -69,19 +55,41 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const API_URL = "http://192.168.160.62:8080";
 
 export default function Marketplace() {
   const classes = useStyles();
-  let alignLeft = {textAlign: 'left'};
 
-  let padding = {marginLeft: 12};
+  const [cards, setCards] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
+
+
+  function makeProductRequest() {
+    fetch(`${API_URL}/products`)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          console.log(`Products fetched: ${result}`)
+          setCards(result)
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          alert("Error fetching products!")
+        }
+      )
+  }
+
+  useEffect(() =>  {
+    makeProductRequest()
+  });
+
   return (
     <React.Fragment>
       <CssBaseline/>
-      <AppBar position="relative">
+      <AppBar position="relative" style={{backgroundColor:colors.primary}}>
         <Toolbar>
-          <CameraIcon className={classes.icon}/>
           <Typography variant="h6" color="inherit" noWrap>
             Renti Marketplace
           </Typography>
@@ -91,8 +99,8 @@ export default function Marketplace() {
         {/* Hero unit */}
         <div className={classes.heroContent}>
           <Container maxWidth="md">
-            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-              Renti Marketplace
+            <Typography component="h4" variant="h3" align="center" color={colors.secondary} gutterBottom>
+              Rent anything!
             </Typography>
             <div>
               <InputGroup className="mb-3">
@@ -102,34 +110,34 @@ export default function Marketplace() {
                   aria-describedby="basic-addon2"
                 />
                 <InputGroup.Append>
-                  <Button variant="primary" class="btn btn-primary">
+                  <Button onClick={() => makeProductRequest()} variant="primary" class="btn btn-primary" style={{backgroundColor:colors.primary}}>
                     <MdSearch/>
                   </Button>
                 </InputGroup.Append>
               </InputGroup>
             </div>
             <InputGroup className="mb-3" size="sm">
-              <InputGroup.Prepend>
-                <InputGroup.Text>
-                  <MdPlace/>
+              <InputGroup.Prepend >
+                <InputGroup.Text style={{backgroundColor:colors.secondary}}>
+                  <MdPlace style={{color:'white'}} />
                 </InputGroup.Text>
               </InputGroup.Prepend>
               <FormControl
                 placeholder="Local"/>
               <InputGroup.Prepend>
-                <InputGroup.Text>
-                  <IoMdCalendar/>
+                <InputGroup.Text style={{backgroundColor:colors.secondary}}>
+                  <IoMdPricetag style={{color:'white'}}/>
                 </InputGroup.Text>
               </InputGroup.Prepend>
               <FormControl
-                placeholder="From"/>
+                placeholder="Minimum Price"/>
               <InputGroup.Prepend>
-                <InputGroup.Text>
-                  <IoMdCalendar/>
+                <InputGroup.Text style={{backgroundColor:colors.secondary}}>
+                  <IoMdPricetag style={{color:'white'}}/>
                 </InputGroup.Text>
               </InputGroup.Prepend>
               <FormControl
-                placeholder="To"/>
+                placeholder="Maximum Price"/>
 
             </InputGroup>
           </Container>
@@ -137,52 +145,64 @@ export default function Marketplace() {
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
+            { cards.map((card) => {
+              return true ?
+              <Grid item key={card.id} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
-                    image="https://source.unsplash.com/random"
+                    image={'https://gitlab.com/uploads/-/system/group/avatar/7865598/icon.png?width=64'}
                     title="Image title"
                   />
                   <CardContent style={{textAlign: 'center'}} className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h3">
-                      Fato Homem - XL
+                      {card.name}
                     </Typography>
                   </CardContent>
                   <CardContent style={{textAlign: 'center'}} className={classes.cardContent}>
                     <Typography gutterBottom>
-                      Águeda, Aveiro
+                      {card.location}
                     </Typography>
                   </CardContent>
                   <Row style={{textAlign: 'center'}}>
-                    <CardContent className={classes.cardContent}>
+                    <CardContent style={{flex:1, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
                       <Typography gutterBottom>
-                        20.00€ /day
+                        {card.price}€ /day
                       </Typography>
                     </CardContent>
-                    <CardActions style={{alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
-                      <Button size="large" style={{color: colors.primary}}>
+                    <CardActions style={{flex:1 ,alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
+                      <Button size="large" style={{color: 'white',backgroundColor:colors.primary}}>
                         <MdPhone/>
                       </Button>
                     </CardActions>
                   </Row>
                 </Card>
               </Grid>
-            ))}
+            :
+              <Grid />
+            })}
           </Grid>
         </Container>
       </main>
       {/* Footer */}
-      <footer className={classes.footer}>
-        <Typography variant="h6" align="center" gutterBottom>
-          Footer
-        </Typography>
-        <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-          Something here to give the footer a purpose!
-        </Typography>
-        <Copyright/>
-      </footer>
+      <div id="footer">
+            <footer id="footer" role="contentinfo">
+                <a href="#" class="gotop js-gotop"><i class="icon-arrow-up2"></i></a>
+                <div class="container">
+                    <div class="">
+                        <div class="col-md-12 text-center">
+                            <p><strong>Renti 2020 &copy;</strong>  All Rights Reserved. <br /><a href="https://www.ua.pt/deti/">Universidade de Aveiro - DETI</a></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <a href="https://gitlab.com/renti-software/"><FaGitlab size={40} style={{marginBottom:20, color:colors.primary}}/></a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
       {/* End footer */}
     </React.Fragment>
   );
