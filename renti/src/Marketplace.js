@@ -55,7 +55,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const API_URL = "http://192.168.160.62:8080";
+// const API_URL = "http://192.168.160.62:8080";
+
+console.log(process.env.REACT_APP_API_IP);
+
+const API_URL = "http://" + process.env.REACT_APP_API_IP + ":8080";
+console.log(API_URL)
 
 export default function Marketplace() {
   const classes = useStyles();
@@ -67,10 +72,9 @@ export default function Marketplace() {
   function makeProductRequest() {
     fetch(`${API_URL}/products`)
       .then(res => res.json())
-      .then(
-        (result) => {
-          console.log(`Products fetched: ${result}`)
-          setCards(result)
+      .then(result => {
+          console.log(`Products fetched: ${[result]}`)
+          setCards([result])
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
