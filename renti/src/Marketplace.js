@@ -17,7 +17,7 @@ import Link from '@material-ui/core/Link';
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import {MdPhone, MdPlace, MdSearch} from "react-icons/md";
-import {IoMdCalendar} from 'react-icons/io';
+import {IoMdCalendar, IoMdPricetag} from 'react-icons/io';
 import Row from "react-bootstrap/Row";
 
 function Copyright() {
@@ -145,27 +145,27 @@ export default function Marketplace() {
               </InputGroup>
             </div>
             <InputGroup className="mb-3" size="sm">
-              <InputGroup.Prepend>
-                <InputGroup.Text>
-                  <MdPlace/>
+              <InputGroup.Prepend >
+                <InputGroup.Text style={{backgroundColor:colors.secondary}}>
+                  <MdPlace style={{color:'white'}} />
                 </InputGroup.Text>
               </InputGroup.Prepend>
               <FormControl
                 placeholder="Local"/>
               <InputGroup.Prepend>
-                <InputGroup.Text>
-                  <IoMdCalendar/>
+                <InputGroup.Text style={{backgroundColor:colors.secondary}}>
+                  <IoMdPricetag style={{color:'white'}}/>
                 </InputGroup.Text>
               </InputGroup.Prepend>
               <FormControl
-                placeholder="From"/>
+                placeholder="Minimum Price"/>
               <InputGroup.Prepend>
-                <InputGroup.Text>
-                  <IoMdCalendar/>
+                <InputGroup.Text style={{backgroundColor:colors.secondary}}>
+                  <IoMdPricetag style={{color:'white'}}/>
                 </InputGroup.Text>
               </InputGroup.Prepend>
               <FormControl
-                placeholder="To"/>
+                placeholder="Maximum Price"/>
 
             </InputGroup>
           </Container>
