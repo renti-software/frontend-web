@@ -4,9 +4,8 @@ services:
   postgres:
     image: postgres
     environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      POSTGRES_USER: 'spring'
+      POSTGRES_PASSWORD: '123'
   backend:
     image: registry.gitlab.com/renti-software/backend
     ports:
@@ -19,7 +18,10 @@ services:
       - POSTGRES_HOST=postgres
       - POSTGRES_PORT=5432
   react:
-    build: .
+    build: 
+      context: .
+      args:
+        REACT_APP_API_IP: 'localhost'
     ports:
       - "3000:3000"
     depends_on:
