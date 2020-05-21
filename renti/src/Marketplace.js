@@ -2,7 +2,6 @@ import React from 'react';
 import colors from './Colors';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
-import CameraIcon from '@material-ui/icons/PhotoCamera';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -13,25 +12,12 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Link from '@material-ui/core/Link';
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import {MdPhone, MdPlace, MdSearch} from "react-icons/md";
-import {IoMdCalendar, IoMdPricetag} from 'react-icons/io';
+import {IoMdPricetag} from 'react-icons/io';
+import {FaGitlab} from 'react-icons/fa';
 import Row from "react-bootstrap/Row";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -69,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const cards = [
+const hook_cards = [
   {
       "id" : "1",
       "name" : "GoPro Hero5",
@@ -109,15 +95,12 @@ const cards = [
 
 export default function Marketplace() {
   const classes = useStyles();
-  let alignLeft = {textAlign: 'left'};
 
-  let padding = {marginLeft: 12};
   return (
     <React.Fragment>
       <CssBaseline/>
       <AppBar position="relative" style={{backgroundColor:colors.primary}}>
         <Toolbar>
-          <CameraIcon className={classes.icon}/>
           <Typography variant="h6" color="inherit" noWrap>
             Renti Marketplace
           </Typography>
@@ -173,7 +156,7 @@ export default function Marketplace() {
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {cards.map((card) => (
+            {hook_cards.map((card) => (
               <Grid item key={card.id} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
                   <CardMedia
@@ -210,15 +193,24 @@ export default function Marketplace() {
         </Container>
       </main>
       {/* Footer */}
-      <footer className={classes.footer}>
-        <Typography variant="h6" align="center" gutterBottom>
-          Footer
-        </Typography>
-        <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-          Something here to give the footer a purpose!
-        </Typography>
-        <Copyright/>
-      </footer>
+      <div id="footer">
+            <footer id="footer" role="contentinfo">
+                <a href="#" class="gotop js-gotop"><i class="icon-arrow-up2"></i></a>
+                <div class="container">
+                    <div class="">
+                        <div class="col-md-12 text-center">
+                            <p><strong>Renti 2020 &copy;</strong>  All Rights Reserved. <br /><a href="https://www.ua.pt/deti/">Universidade de Aveiro - DETI</a></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <a href="https://gitlab.com/renti-software/"><FaGitlab size={40} style={{marginBottom:20, color:colors.primary}}/></a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
       {/* End footer */}
     </React.Fragment>
   );
