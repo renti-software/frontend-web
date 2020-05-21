@@ -185,7 +185,7 @@ export default function Marketplace() {
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
-                    image={card.image}
+                    image={'https://gitlab.com/uploads/-/system/group/avatar/7865598/icon.png?width=64'}
                     title="Image title"
                   />
                   <CardContent style={{textAlign: 'center'}} className={classes.cardContent}>
