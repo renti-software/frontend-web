@@ -110,8 +110,8 @@ export default function Marketplace() {
         {/* Hero unit */}
         <div className={classes.heroContent}>
           <Container maxWidth="md">
-            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-              Renti Marketplace
+            <Typography component="h4" variant="h3" align="center" color={colors.secondary} gutterBottom>
+              Rent anything!
             </Typography>
             <div>
               <InputGroup className="mb-3">
