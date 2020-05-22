@@ -70,7 +70,10 @@ export default function Marketplace() {
 
   const [cards, setCards] = useState([]);
   const [searchValue, setSearchValue] = useState('');
-
+  const [paramLocation, setParamLocation] = useState('');
+  const [paramCategory, setParamCategory] = useState('');
+  const [paramMinPrice, setParamMinPrice] = useState('');
+  const [paramMaxPrice, setParamMaxPrice] = useState('');
 
   function makeProductRequest() {
     console.log(searchValue)
