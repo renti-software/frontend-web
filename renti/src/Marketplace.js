@@ -68,7 +68,31 @@ console.log(API_URL)
 export default function Marketplace() {
   const classes = useStyles();
 
-  const [cards, setCards] = useState([{}]);
+  const [cards, setCards] = useState([
+    {
+      "id": 1,
+      "name": "GoPro Hero5",
+      "category": null,
+      "price": 20,
+      "location": {
+          "id": 1,
+          "cityName": "Aveiro",
+          "country": "Portugal"
+      },
+      "user": {
+          "id": 2,
+          "name": "user1",
+          "email": "user1@gmail.com",
+          "location": {
+              "id": 1,
+              "cityName": "Aveiro",
+              "country": "Portugal"
+          },
+          "password": "ola"
+      },
+      "description": null
+  }
+  ]);
   const [searchValue, setSearchValue] = useState('');
 
 
@@ -78,7 +102,7 @@ export default function Marketplace() {
       .then(result => {
           console.log(`Products fetched:`)
           console.log(result)
-          setCards([result[0],result[1],result[2]])
+          setCards(result)
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
@@ -151,7 +175,7 @@ export default function Marketplace() {
           <Grid container spacing={4}>
             { cards.map((card) => {
               return true ?
-              <Grid item key={card.id} xs={12} sm={6} md={4}>
+              <Grid item xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
@@ -165,7 +189,7 @@ export default function Marketplace() {
                   </CardContent>
                   <CardContent style={{textAlign: 'center'}} className={classes.cardContent}>
                     <Typography gutterBottom>
-                      {card.location}
+                      {card.location.cityName}, {card.location.country}
                     </Typography>
                   </CardContent>
                   <Row style={{textAlign: 'center'}}>
