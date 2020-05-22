@@ -68,35 +68,12 @@ console.log(API_URL)
 export default function Marketplace() {
   const classes = useStyles();
 
-  const [cards, setCards] = useState([
-    {
-      "id": 1,
-      "name": "GoPro Hero5",
-      "category": null,
-      "price": 20,
-      "location": {
-          "id": 1,
-          "cityName": "Aveiro",
-          "country": "Portugal"
-      },
-      "user": {
-          "id": 2,
-          "name": "user1",
-          "email": "user1@gmail.com",
-          "location": {
-              "id": 1,
-              "cityName": "Aveiro",
-              "country": "Portugal"
-          },
-          "password": "ola"
-      },
-      "description": null
-  }
-  ]);
+  const [cards, setCards] = useState([]);
   const [searchValue, setSearchValue] = useState('');
 
 
   function makeProductRequest() {
+    console.log(searchValue)
     fetch(`${API_URL}/products`)
       .then(res => res.json())
       .then(result => {
@@ -111,6 +88,11 @@ export default function Marketplace() {
           alert("Error fetching products!")
         }
       )
+  }
+
+  function handleSearch(event){
+    let sv = event.target.value
+    setSearchValue(sv)
   }
 
   return (
@@ -136,6 +118,7 @@ export default function Marketplace() {
                   placeholder="Search product or equipment..."
                   aria-label="Search product or equipment..."
                   aria-describedby="basic-addon2"
+                  onChange={handleSearch.bind(this)}
                 />
                 <InputGroup.Append>
                   <Button onClick={() => makeProductRequest()} variant="primary" class="btn btn-primary" style={{backgroundColor:colors.primary}}>
