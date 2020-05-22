@@ -76,7 +76,7 @@ export default function Marketplace() {
   const [paramMaxPrice, setParamMaxPrice] = useState('');
 
   function makeProductRequest() {
-    console.log(searchValue)
+    console.log(`Params: ${paramLocation}, ${paramCategory}, ${paramMinPrice}, ${paramMaxPrice} `)
     fetch(`${API_URL}/products`)
       .then(res => res.json())
       .then(result => {
@@ -93,11 +93,32 @@ export default function Marketplace() {
       )
   }
 
+  //These functions handle inputForm changes
   function handleSearch(event){
     let sv = event.target.value
     setSearchValue(sv)
   }
 
+  function handleParamLocation(event){
+    let sv = event.target.value
+    setParamLocation(sv)
+  }
+
+  function handleParamCategory(event){
+    let sv = event.target.value
+    setParamCategory(sv)
+  }
+
+  function handleParamMinPrice(event){
+    let sv = event.target.value
+    setParamMinPrice(sv)
+  }
+  function handleParamMaxPrice(event){
+    let sv = event.target.value
+    setParamMaxPrice(sv)
+  }
+
+  //This renders conditionally using card mapping
   function checkSearchValue(card_name){
     return card_name.toLowerCase().includes(searchValue.toLowerCase()) ? true : false
   }
@@ -141,29 +162,32 @@ export default function Marketplace() {
                 </InputGroup.Text>
               </InputGroup.Prepend>
               <FormControl
-                placeholder="Local"/>
+                placeholder="Local"
+                onChange={handleParamLocation.bind(this)}/>
               <InputGroup.Prepend>
                 <InputGroup.Text style={{backgroundColor:colors.secondary}}>
                   <IoMdPricetag style={{color:'white'}}/>
                 </InputGroup.Text>
               </InputGroup.Prepend>
               <FormControl
-                placeholder="Category"/>
+                placeholder="Category"
+                onChange={handleParamCategory.bind(this)}/>
               <InputGroup.Prepend>
                 <InputGroup.Text style={{backgroundColor:colors.secondary}}>
                   <IoMdPricetag style={{color:'white'}}/>
                 </InputGroup.Text>
               </InputGroup.Prepend>
               <FormControl
-                placeholder="Minimum Price"/>
+                placeholder="Minimum Price"
+                onChange={handleParamMinPrice.bind(this)}/>
               <InputGroup.Prepend>
                 <InputGroup.Text style={{backgroundColor:colors.secondary}}>
                   <IoMdPricetag style={{color:'white'}}/>
                 </InputGroup.Text>
               </InputGroup.Prepend>
               <FormControl
-                placeholder="Maximum Price"/>
-
+                placeholder="Maximum Price"
+                onChange={handleParamMaxPrice.bind(this)}/>
             </InputGroup>
           </Container>
         </div>
