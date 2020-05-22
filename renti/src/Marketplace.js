@@ -95,6 +95,10 @@ export default function Marketplace() {
     setSearchValue(sv)
   }
 
+  function checkSearchValue(card_name){
+    return card_name.toLowerCase().includes(searchValue.toLowerCase()) ? true : false
+  }
+
   return (
     <React.Fragment>
       <CssBaseline/>
@@ -164,7 +168,7 @@ export default function Marketplace() {
           {/* End hero unit */}
           <Grid container spacing={4}>
             { cards.map((card) => {
-              return true ?
+              return checkSearchValue(card.name) ?
               <Grid item xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
                   <CardMedia
