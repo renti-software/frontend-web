@@ -76,7 +76,7 @@ export default function Marketplace() {
   const [paramMaxPrice, setParamMaxPrice] = useState('');
 
   function makeProductRequest() {
-    console.log(`Params: ${paramLocation}, ${paramCategory}, ${paramMinPrice}, ${paramMaxPrice} `)
+    console.log(`Params: \nLocation: ${paramLocation}\nCategory: ${paramCategory}\nMinPrice: ${paramMinPrice}\nMaxPrice: ${paramMaxPrice} `)
     fetch(`${API_URL}/products`)
       .then(res => res.json())
       .then(result => {
