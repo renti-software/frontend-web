@@ -55,10 +55,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const API_URL = "http://192.168.160.62:8080";
+//const API_URL = "http://192.168.160.62:8080";
 
-//console.log(process.env.REACT_APP_API_IP);
-//const API_URL = "http://" + process.env.REACT_APP_API_IP + ":8080";
+let API_IP = '192.168.160.62';
+if (process.env.REACT_APP_API_IP) {
+  API_IP = process.env.REACT_APP_API_IP;
+}
+
+const API_URL = "http://" + API_IP + ":8080";
 console.log(API_URL)
 
 export default function Marketplace() {
