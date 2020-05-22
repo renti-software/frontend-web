@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// const API_URL = "http://192.168.160.62:8080";
+//const API_URL = "http://192.168.160.62:8080";
 
 let API_IP = '192.168.160.62';
 if (process.env.REACT_APP_API_IP) {
@@ -70,14 +70,19 @@ export default function Marketplace() {
 
   const [cards, setCards] = useState([]);
   const [searchValue, setSearchValue] = useState('');
-
+  const [paramLocation, setParamLocation] = useState('');
+  const [paramCategory, setParamCategory] = useState('');
+  const [paramMinPrice, setParamMinPrice] = useState('');
+  const [paramMaxPrice, setParamMaxPrice] = useState('');
 
   function makeProductRequest() {
+    console.log(`Params: \nLocation: ${paramLocation}\nCategory: ${paramCategory}\nMinPrice: ${paramMinPrice}\nMaxPrice: ${paramMaxPrice} `)
     fetch(`${API_URL}/products`)
       .then(res => res.json())
       .then(result => {
-          console.log(`Products fetched: ${[result]}`)
-          setCards([result])
+          console.log(`Products fetched:`)
+          console.log(result)
+          setCards(result)
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
@@ -88,9 +93,35 @@ export default function Marketplace() {
       )
   }
 
-  useEffect(() =>  {
-    makeProductRequest()
-  });
+  //These functions handle inputForm changes
+  function handleSearch(event){
+    let sv = event.target.value
+    setSearchValue(sv)
+  }
+
+  function handleParamLocation(event){
+    let sv = event.target.value
+    setParamLocation(sv)
+  }
+
+  function handleParamCategory(event){
+    let sv = event.target.value
+    setParamCategory(sv)
+  }
+
+  function handleParamMinPrice(event){
+    let sv = event.target.value
+    setParamMinPrice(sv)
+  }
+  function handleParamMaxPrice(event){
+    let sv = event.target.value
+    setParamMaxPrice(sv)
+  }
+
+  //This renders conditionally using card mapping
+  function checkSearchValue(card_name){
+    return card_name.toLowerCase().includes(searchValue.toLowerCase()) ? true : false
+  }
 
   return (
     <React.Fragment>
@@ -115,6 +146,7 @@ export default function Marketplace() {
                   placeholder="Search product or equipment..."
                   aria-label="Search product or equipment..."
                   aria-describedby="basic-addon2"
+                  onChange={handleSearch.bind(this)}
                 />
                 <InputGroup.Append>
                   <Button onClick={() => makeProductRequest()} variant="primary" class="btn btn-primary" style={{backgroundColor:colors.primary}}>
@@ -130,22 +162,32 @@ export default function Marketplace() {
                 </InputGroup.Text>
               </InputGroup.Prepend>
               <FormControl
-                placeholder="Local"/>
+                placeholder="Local"
+                onChange={handleParamLocation.bind(this)}/>
               <InputGroup.Prepend>
                 <InputGroup.Text style={{backgroundColor:colors.secondary}}>
                   <IoMdPricetag style={{color:'white'}}/>
                 </InputGroup.Text>
               </InputGroup.Prepend>
               <FormControl
-                placeholder="Minimum Price"/>
+                placeholder="Category"
+                onChange={handleParamCategory.bind(this)}/>
               <InputGroup.Prepend>
                 <InputGroup.Text style={{backgroundColor:colors.secondary}}>
                   <IoMdPricetag style={{color:'white'}}/>
                 </InputGroup.Text>
               </InputGroup.Prepend>
               <FormControl
-                placeholder="Maximum Price"/>
-
+                placeholder="Minimum Price"
+                onChange={handleParamMinPrice.bind(this)}/>
+              <InputGroup.Prepend>
+                <InputGroup.Text style={{backgroundColor:colors.secondary}}>
+                  <IoMdPricetag style={{color:'white'}}/>
+                </InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl
+                placeholder="Maximum Price"
+                onChange={handleParamMaxPrice.bind(this)}/>
             </InputGroup>
           </Container>
         </div>
@@ -153,8 +195,8 @@ export default function Marketplace() {
           {/* End hero unit */}
           <Grid container spacing={4}>
             { cards.map((card) => {
-              return true ?
-              <Grid item key={card.id} xs={12} sm={6} md={4}>
+              return checkSearchValue(card.name) ?
+              <Grid item xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
@@ -168,7 +210,7 @@ export default function Marketplace() {
                   </CardContent>
                   <CardContent style={{textAlign: 'center'}} className={classes.cardContent}>
                     <Typography gutterBottom>
-                      {card.location}
+                      {card.location.cityName}, {card.location.country}
                     </Typography>
                   </CardContent>
                   <Row style={{textAlign: 'center'}}>
