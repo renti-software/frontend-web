@@ -141,6 +141,13 @@ export default function Marketplace() {
                 </InputGroup.Text>
               </InputGroup.Prepend>
               <FormControl
+                placeholder="Category"/>
+              <InputGroup.Prepend>
+                <InputGroup.Text style={{backgroundColor:colors.secondary}}>
+                  <IoMdPricetag style={{color:'white'}}/>
+                </InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl
                 placeholder="Minimum Price"/>
               <InputGroup.Prepend>
                 <InputGroup.Text style={{backgroundColor:colors.secondary}}>
