@@ -1,17 +1,37 @@
-import * as React from "react";
-import colors from "./Colors";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import AppBar from "@material-ui/core/AppBar";
+import React from 'react';
+import {makeStyles} from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Colors from "./Colors";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },
+}));
 
 export default function NavBar() {
+  const classes = useStyles();
+
   return (
-    <AppBar position="relative" style={{backgroundColor: colors.primary}}>
-      <Toolbar>
-        <Typography variant="h6" color="inherit" noWrap>
-          Renti Marketplace
-        </Typography>
-      </Toolbar>
-    </AppBar>
+    <div className={classes.root}>
+      <AppBar position="relative" style={{backgroundColor: Colors.primary}}>
+        <Toolbar>
+          <Typography variant="h6" color="inherit" noWrap className={classes.title} align="left">
+            Renti Marketplace
+          </Typography>
+          <Button color="inherit" href="/login">Login</Button>
+        </Toolbar>
+      </AppBar>
+    </div>
   );
 }
+
