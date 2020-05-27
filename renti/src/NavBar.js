@@ -28,7 +28,7 @@ export default function NavBar() {
           <Typography variant="h6" color="inherit" noWrap className={classes.title} align="left">
             Renti Marketplace
           </Typography>
-          <Button color="inherit" href="/login">Login</Button>
+          <Button color="inherit" href="/login">Sign In</Button>
         </Toolbar>
       </AppBar>
     </div>
