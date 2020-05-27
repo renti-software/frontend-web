@@ -1,11 +1,22 @@
 import React from 'react';
-import Marketplace from './Marketplace'
 import './App.css';
+import NavBar from "./NavBar";
+import SignIn from "./SignIn";
+import {BrowserRouter as Router, Route} from "react-router-dom";
+import Marketplace from "./Marketplace";
+import SignUp from "./SignUp";
 
 function App() {
   return (
     <div className="App">
-      <Marketplace/>
+      <NavBar/>
+      <Router>
+        <main>
+          <Route path="/" exact component={Marketplace}/>
+          <Route path="/login" component={SignIn}/>
+          <Route path="/register" component={SignUp}/>
+        </main>
+      </Router>
     </div>
   );
 }

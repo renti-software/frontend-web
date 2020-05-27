@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState} from 'react';
 import colors from './Colors';
-import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -8,7 +7,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -18,6 +16,7 @@ import {MdPhone, MdPlace, MdSearch} from "react-icons/md";
 import {IoMdPricetag} from 'react-icons/io';
 import {FaGitlab} from 'react-icons/fa';
 import Row from "react-bootstrap/Row";
+import RentiFooter from "./RentiFooter";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -94,45 +93,39 @@ export default function Marketplace() {
   }
 
   //These functions handle inputForm changes
-  function handleSearch(event){
+  function handleSearch(event) {
     let sv = event.target.value
     setSearchValue(sv)
   }
 
-  function handleParamLocation(event){
+  function handleParamLocation(event) {
     let sv = event.target.value
     setParamLocation(sv)
   }
 
-  function handleParamCategory(event){
+  function handleParamCategory(event) {
     let sv = event.target.value
     setParamCategory(sv)
   }
 
-  function handleParamMinPrice(event){
+  function handleParamMinPrice(event) {
     let sv = event.target.value
     setParamMinPrice(sv)
   }
-  function handleParamMaxPrice(event){
+
+  function handleParamMaxPrice(event) {
     let sv = event.target.value
     setParamMaxPrice(sv)
   }
 
   //This renders conditionally using card mapping
-  function checkSearchValue(card_name){
-    return card_name.toLowerCase().includes(searchValue.toLowerCase()) ? true : false
+  function checkSearchValue(card_name) {
+    return card_name.toLowerCase().includes(searchValue.toLowerCase())
   }
 
   return (
     <React.Fragment>
       <CssBaseline/>
-      <AppBar position="relative" style={{backgroundColor:colors.primary}}>
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            Renti Marketplace
-          </Typography>
-        </Toolbar>
-      </AppBar>
       <main>
         {/* Hero unit */}
         <div className={classes.heroContent}>
@@ -149,40 +142,41 @@ export default function Marketplace() {
                   onChange={handleSearch.bind(this)}
                 />
                 <InputGroup.Append>
-                  <Button onClick={() => makeProductRequest()} variant="primary" class="btn btn-primary" style={{backgroundColor:colors.primary}}>
+                  <Button onClick={() => makeProductRequest()} variant="primary" class="btn btn-primary"
+                          style={{backgroundColor: colors.primary}}>
                     <MdSearch/>
                   </Button>
                 </InputGroup.Append>
               </InputGroup>
             </div>
             <InputGroup className="mb-3" size="sm">
-              <InputGroup.Prepend >
-                <InputGroup.Text style={{backgroundColor:colors.secondary}}>
-                  <MdPlace style={{color:'white'}} />
+              <InputGroup.Prepend>
+                <InputGroup.Text style={{backgroundColor: colors.secondary}}>
+                  <MdPlace style={{color: 'white'}}/>
                 </InputGroup.Text>
               </InputGroup.Prepend>
               <FormControl
                 placeholder="Local"
                 onChange={handleParamLocation.bind(this)}/>
               <InputGroup.Prepend>
-                <InputGroup.Text style={{backgroundColor:colors.secondary}}>
-                  <IoMdPricetag style={{color:'white'}}/>
+                <InputGroup.Text style={{backgroundColor: colors.secondary}}>
+                  <IoMdPricetag style={{color: 'white'}}/>
                 </InputGroup.Text>
               </InputGroup.Prepend>
               <FormControl
                 placeholder="Category"
                 onChange={handleParamCategory.bind(this)}/>
               <InputGroup.Prepend>
-                <InputGroup.Text style={{backgroundColor:colors.secondary}}>
-                  <IoMdPricetag style={{color:'white'}}/>
+                <InputGroup.Text style={{backgroundColor: colors.secondary}}>
+                  <IoMdPricetag style={{color: 'white'}}/>
                 </InputGroup.Text>
               </InputGroup.Prepend>
               <FormControl
                 placeholder="Minimum Price"
                 onChange={handleParamMinPrice.bind(this)}/>
               <InputGroup.Prepend>
-                <InputGroup.Text style={{backgroundColor:colors.secondary}}>
-                  <IoMdPricetag style={{color:'white'}}/>
+                <InputGroup.Text style={{backgroundColor: colors.secondary}}>
+                  <IoMdPricetag style={{color: 'white'}}/>
                 </InputGroup.Text>
               </InputGroup.Prepend>
               <FormControl
@@ -194,63 +188,49 @@ export default function Marketplace() {
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            { cards.map((card) => {
+            {cards.map((card) => {
               return checkSearchValue(card.name) ?
-              <Grid item xs={12} sm={6} md={4}>
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image={'https://gitlab.com/uploads/-/system/group/avatar/7865598/icon.png?width=64'}
-                    title="Image title"
-                  />
-                  <CardContent style={{textAlign: 'center'}} className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h3">
-                      {card.name}
-                    </Typography>
-                  </CardContent>
-                  <CardContent style={{textAlign: 'center'}} className={classes.cardContent}>
-                    <Typography gutterBottom>
-                      {card.location.cityName}, {card.location.country}
-                    </Typography>
-                  </CardContent>
-                  <Row style={{textAlign: 'center'}}>
-                    <CardContent style={{flex:1, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
-                      <Typography gutterBottom>
-                        {card.price}€ /day
+                <Grid item xs={12} sm={6} md={4}>
+                  <Card className={classes.card}>
+                    <CardMedia
+                      className={classes.cardMedia}
+                      image={'https://gitlab.com/uploads/-/system/group/avatar/7865598/icon.png?width=64'}
+                      title="Image title"
+                    />
+                    <CardContent style={{textAlign: 'center'}} className={classes.cardContent}>
+                      <Typography gutterBottom variant="h5" component="h3">
+                        {card.name}
                       </Typography>
                     </CardContent>
-                    <CardActions style={{flex:1 ,alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
-                      <Button size="large" style={{color: 'white',backgroundColor:colors.primary}}>
-                        <MdPhone/>
-                      </Button>
-                    </CardActions>
-                  </Row>
-                </Card>
-              </Grid>
-            :
-              <Grid />
+                    <CardContent style={{textAlign: 'center'}} className={classes.cardContent}>
+                      <Typography gutterBottom>
+                        {card.location.cityName}, {card.location.country}
+                      </Typography>
+                    </CardContent>
+                    <Row style={{textAlign: 'center'}}>
+                      <CardContent
+                        style={{flex: 1, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
+                        <Typography gutterBottom>
+                          {card.price}€ /day
+                        </Typography>
+                      </CardContent>
+                      <CardActions
+                        style={{flex: 1, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
+                        <Button size="large" style={{color: 'white', backgroundColor: colors.primary}}>
+                          <MdPhone/>
+                        </Button>
+                      </CardActions>
+                    </Row>
+                  </Card>
+                </Grid>
+                :
+                <Grid/>
             })}
           </Grid>
         </Container>
       </main>
       {/* Footer */}
-      <div id="footer">
-            <footer id="footer" role="contentinfo">
-                <a href="#" class="gotop js-gotop"><i class="icon-arrow-up2"></i></a>
-                <div class="container">
-                    <div class="">
-                        <div class="col-md-12 text-center">
-                            <p><strong>Renti 2020 &copy;</strong>  All Rights Reserved. <br /><a href="https://www.ua.pt/deti/">Universidade de Aveiro - DETI</a></p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 text-center">
-                            <a href="https://gitlab.com/renti-software/"><FaGitlab size={40} style={{marginBottom:20, color:colors.primary}}/></a>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-        </div>
+      <RentiFooter/>
 
       {/* End footer */}
     </React.Fragment>
