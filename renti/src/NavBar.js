@@ -30,7 +30,8 @@ export default function NavBar() {
         <Toolbar>
           <Button color="inherit" noWrap className={classes.title} align="left" href="/">Renti Marketplace</Button>
           <Button color="inherit" href="/create">Rent Product</Button>
-          <Button color="inherit" href="/login">Sign In</Button>
+          <Button color="inherit" href="/my_rentals">My Rentals</Button>
+          <Button color="inherit" href="/login">Sign Out</Button>
         </Toolbar>
       </AppBar>
     </div>
