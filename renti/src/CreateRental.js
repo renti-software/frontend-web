@@ -49,6 +49,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+let API_IP = '192.168.160.62';
+if (process.env.REACT_APP_API_IP) {
+  API_IP = process.env.REACT_APP_API_IP;
+}
+
+const API_URL = "http://" + API_IP + ":8080";
+console.log(API_URL)
+
 export default function SignUp() {
   const classes = useStyles();
 
