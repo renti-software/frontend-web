@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Colors from "./Colors";
 
 function Copyright() {
   return (
@@ -92,6 +93,7 @@ export default function SignIn() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            style={{backgroundColor: Colors.primary}}
           >
             Sign In
           </Button>
