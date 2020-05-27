@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Colors from "./Colors";
+import RentiFooter from "./RentiFooter";
 
 function Copyright() {
   return (
@@ -112,7 +113,7 @@ export default function SignIn() {
         </form>
       </div>
       <Box mt={8}>
-        <Copyright/>
+        <RentiFooter/>
       </Box>
     </Container>
   );

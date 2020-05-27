@@ -16,6 +16,7 @@ import {MdPhone, MdPlace, MdSearch} from "react-icons/md";
 import {IoMdPricetag} from 'react-icons/io';
 import {FaGitlab} from 'react-icons/fa';
 import Row from "react-bootstrap/Row";
+import RentiFooter from "./RentiFooter";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -229,27 +230,7 @@ export default function Marketplace() {
         </Container>
       </main>
       {/* Footer */}
-      <div id="footer">
-        <footer id="footer" role="contentinfo">
-          <a href="#" class="gotop js-gotop"><i class="icon-arrow-up2"></i></a>
-          <div class="container">
-            <div class="">
-              <div class="col-md-12 text-center">
-                <p><strong>Renti 2020 &copy;</strong> All Rights Reserved. <br/><a href="https://www.ua.pt/deti/">Universidade
-                  de Aveiro - DETI</a></p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12 text-center">
-                <a href="https://gitlab.com/renti-software/"><FaGitlab size={40} style={{
-                  marginBottom: 20,
-                  color: colors.primary
-                }}/></a>
-              </div>
-            </div>
-          </div>
-        </footer>
-      </div>
+      <RentiFooter/>
 
       {/* End footer */}
     </React.Fragment>
