@@ -15,7 +15,7 @@ let API_URL = "http://" + API_IP + ":8080/products/";
 export default class ProductPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {product: {}};
+    this.state = {product: {}, location: {}};
   }
 
   componentDidMount() {
@@ -26,12 +26,13 @@ export default class ProductPage extends React.Component {
     fetch(API_URL + this.props.match.params.id)
       .then(res => res.json())
       .then(result => {
-        this.setState({product: result});
+        this.setState({product: result, location: result.location});
       });
   }
 
   render() {
     const p = this.state.product;
+    const l = this.state.location;
     console.log(p);
     return (
       <React.Fragment>
@@ -39,11 +40,14 @@ export default class ProductPage extends React.Component {
           <Typography variant="h4">
             {p.name}
           </Typography>
-          <Typography variant="h4">
+          <Typography variant="body1">
+            {l.cityName}, {l.country}
+          </Typography>
+          <Typography variant="body1">
             {p.price} €
           </Typography>
-          <Typography variant="h4">
-            {/*{p.location.cityName}, */}
+          <Typography variant="body1">
+            {p.description}
           </Typography>
 
         </Container>
