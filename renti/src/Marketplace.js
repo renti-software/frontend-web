@@ -76,7 +76,23 @@ export default function Marketplace() {
 
   function makeProductRequest() {
     console.log(`Params: \nLocation: ${paramLocation}\nCategory: ${paramCategory}\nMinPrice: ${paramMinPrice}\nMaxPrice: ${paramMaxPrice} `)
-    fetch(`${API_URL}/products`)
+    let base_link = `${API_URL}/products?`
+    if (paramLocation!=''){
+      base_link = base_link + `location=${paramLocation}&`
+    }
+    if (paramCategory!=''){
+      base_link = base_link + `category=${paramCategory}&`
+    }
+    if (paramMinPrice!=''){
+      base_link = base_link + `minPrice=${paramMinPrice}&`
+    }
+    else{
+      base_link = base_link + `minPrice=0&`
+    }
+    if (paramMaxPrice!=''){
+      base_link = base_link + `maxPrice=${paramMaxPrice}`
+    }
+    fetch(base_link)
       .then(res => res.json())
       .then(result => {
           console.log(`Products fetched:`)
