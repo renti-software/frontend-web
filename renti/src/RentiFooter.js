@@ -1,6 +1,6 @@
 import colors from "./Colors";
 import React from "react";
-import {FaGitlab} from "react-icons/all";
+import {FaGitlab} from "react-icons/fa";
 
 export default function RentiFooter() {
   return (
