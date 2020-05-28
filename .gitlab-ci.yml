@@ -25,8 +25,12 @@ test:
   stage: Test
   script:
     - echo "Testing..."
+<<<<<<< HEAD
     - cd renti
     - npm install
+=======
+    - cd renti/
+>>>>>>> f2d03ee45de12855c322c44f3d09447c6c544033
     - npm test
 
 docker:
