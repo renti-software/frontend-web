@@ -14,7 +14,10 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   title: {
-    flexGrow: 1,
+    flexGrow:1,
+    alignItems:'flex-start',
+    justifyContent:'flex-start',
+    flex:1,
   },
 }));
 
@@ -25,10 +28,10 @@ export default function NavBar() {
     <div className={classes.root}>
       <AppBar position="relative" style={{backgroundColor: Colors.primary}}>
         <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap className={classes.title} align="left">
-            Renti Marketplace
-          </Typography>
-          <Button color="inherit" href="/login">Sign In</Button>
+          <Button color="inherit" noWrap className={classes.title} align="left" href="/">Renti Marketplace</Button>
+          <Button color="inherit" href="/create">Rent Product</Button>
+          <Button color="inherit" href="/my_rentals">My Rentals</Button>
+          <Button color="inherit" href="/login">Sign Out</Button>
         </Toolbar>
       </AppBar>
     </div>

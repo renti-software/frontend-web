@@ -73,10 +73,42 @@ export default function Marketplace() {
   const [paramCategory, setParamCategory] = useState('');
   const [paramMinPrice, setParamMinPrice] = useState('');
   const [paramMaxPrice, setParamMaxPrice] = useState('');
+  const [paramOrder, setParamOrder] = useState('');
+  const [paramOrderAsc, setParamOrderAsc] = useState('');
 
   function makeProductRequest() {
     console.log(`Params: \nLocation: ${paramLocation}\nCategory: ${paramCategory}\nMinPrice: ${paramMinPrice}\nMaxPrice: ${paramMaxPrice} `)
-    fetch(`${API_URL}/products`)
+    let base_link = `${API_URL}/products?`
+    if (paramLocation!=''){
+      base_link = base_link + `location=${paramLocation}&`
+    }
+    if (paramCategory!=''){
+      base_link = base_link + `category=${paramCategory}&`
+    }
+    if (paramMinPrice!=''){
+      base_link = base_link + `minPrice=${paramMinPrice}&`
+    }
+    else{
+      base_link = base_link + `minPrice=0&`
+    }
+    if (paramMaxPrice!=''){
+      base_link = base_link + `maxPrice=${paramMaxPrice}&`
+    }
+
+    if (paramOrder!=''){
+      base_link = base_link + `orderParameter=${paramOrder}&`
+    }
+    else{
+      base_link = base_link + `orderParameter=name&`
+    }
+
+    if (paramOrderAsc!=''){
+      base_link = base_link + `order=${paramOrderAsc}`
+    }
+    else{
+      base_link = base_link + `order=asc`
+    }
+    fetch(base_link)
       .then(res => res.json())
       .then(result => {
           console.log(`Products fetched:`)
@@ -116,6 +148,16 @@ export default function Marketplace() {
   function handleParamMaxPrice(event) {
     let sv = event.target.value
     setParamMaxPrice(sv)
+  }
+
+  function handleParamOrder(event) {
+    let sv = event.target.value
+    setParamOrder(sv)
+  }
+
+  function handleParamOrderAsc(event) {
+    let sv = event.target.value
+    setParamOrderAsc(sv)
   }
 
   //This renders conditionally using card mapping
@@ -182,6 +224,24 @@ export default function Marketplace() {
               <FormControl
                 placeholder="Maximum Price"
                 onChange={handleParamMaxPrice.bind(this)}/>
+            </InputGroup>
+            <InputGroup className="mb-3" size="sm">
+              <InputGroup.Prepend>
+                <InputGroup.Text style={{backgroundColor: colors.secondary}}>
+                  <MdPlace style={{color: 'white'}}/>
+                </InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl
+                placeholder="Ordering filter"
+                onChange={handleParamOrder.bind(this)}/>
+                <InputGroup.Prepend>
+                <InputGroup.Text style={{backgroundColor: colors.secondary}}>
+                  <MdPlace style={{color: 'white'}}/>
+                </InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl
+                placeholder="Asc/Desc"
+                onChange={handleParamOrderAsc.bind(this)}/>
             </InputGroup>
           </Container>
         </div>
