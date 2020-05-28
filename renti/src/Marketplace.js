@@ -62,7 +62,7 @@ if (process.env.REACT_APP_API_IP) {
 }
 
 const API_URL = "http://" + API_IP + ":8080";
-console.log(API_URL)
+console.log(API_URL);
 
 export default function Marketplace() {
   const classes = useStyles();
@@ -79,33 +79,30 @@ export default function Marketplace() {
   function makeProductRequest() {
     console.log(`Params: \nLocation: ${paramLocation}\nCategory: ${paramCategory}\nMinPrice: ${paramMinPrice}\nMaxPrice: ${paramMaxPrice} `)
     let base_link = `${API_URL}/products?`
-    if (paramLocation!=''){
+    if (paramLocation != '') {
       base_link = base_link + `location=${paramLocation}&`
     }
-    if (paramCategory!=''){
+    if (paramCategory != '') {
       base_link = base_link + `category=${paramCategory}&`
     }
-    if (paramMinPrice!=''){
+    if (paramMinPrice != '') {
       base_link = base_link + `minPrice=${paramMinPrice}&`
-    }
-    else{
+    } else {
       base_link = base_link + `minPrice=0&`
     }
-    if (paramMaxPrice!=''){
+    if (paramMaxPrice != '') {
       base_link = base_link + `maxPrice=${paramMaxPrice}&`
     }
 
-    if (paramOrder!=''){
+    if (paramOrder != '') {
       base_link = base_link + `orderParameter=${paramOrder}&`
-    }
-    else{
+    } else {
       base_link = base_link + `orderParameter=name&`
     }
 
-    if (paramOrderAsc!=''){
+    if (paramOrderAsc != '') {
       base_link = base_link + `order=${paramOrderAsc}`
-    }
-    else{
+    } else {
       base_link = base_link + `order=asc`
     }
     fetch(base_link)
@@ -234,7 +231,7 @@ export default function Marketplace() {
               <FormControl
                 placeholder="Ordering filter"
                 onChange={handleParamOrder.bind(this)}/>
-                <InputGroup.Prepend>
+              <InputGroup.Prepend>
                 <InputGroup.Text style={{backgroundColor: colors.secondary}}>
                   <MdPlace style={{color: 'white'}}/>
                 </InputGroup.Text>
@@ -252,7 +249,9 @@ export default function Marketplace() {
               let linkToProduct = "/product/" + card.id;
               return checkSearchValue(card.name) ?
                 <Grid item xs={12} sm={6} md={4}>
-                  <Link to={linkToProduct} onClick={() => {console.log(linkToProduct)}}>
+                  <Link to={linkToProduct} onClick={() => {
+                    console.log(linkToProduct)
+                  }}>
                     <Card className={classes.card}>
                       <CardMedia
                         className={classes.cardMedia}

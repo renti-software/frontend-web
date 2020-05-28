@@ -4,27 +4,50 @@ import Row from "react-bootstrap/Row";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 
+// API stuff
+let API_IP = '192.168.160.62';
+if (process.env.REACT_APP_API_IP) {
+  API_IP = process.env.REACT_APP_API_IP;
+}
+
+let API_URL = "http://" + API_IP + ":8080/products/";
+
 export default class ProductPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {product: {}};
+  }
+
+  componentDidMount() {
+    this.Product();
+  }
+
+  Product() {
+    fetch(API_URL + this.props.match.params.id)
+      .then(res => res.json())
+      .then(result => {
+        this.setState({product: result});
+      });
+  }
+
   render() {
+    const p = this.state.product;
+    console.log(p);
     return (
       <React.Fragment>
         <Container>
-          <Typography variant="h3">
-            GoPro S3
+          <Typography variant="h4">
+            {p.name}
           </Typography>
-          <Row>
-            <Image src='https://source.unsplash.com/random' height="100%" width="320"/>
-            <div align="left">
-              <Typography variant="body1">
-                Location: Aveiro, Portugal
-              </Typography>
-              <Typography variant="body1">
-                Price: 13€ p/ day
-              </Typography>
-            </div>
-          </Row>
+          <Typography variant="h4">
+            {p.price} €
+          </Typography>
+          <Typography variant="h4">
+            {/*{p.location.cityName}, */}
+          </Typography>
+
         </Container>
       </React.Fragment>
-    );
-  }
+    )
+  };
 }
