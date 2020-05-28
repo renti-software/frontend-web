@@ -249,9 +249,7 @@ export default function Marketplace() {
               let linkToProduct = "/product/" + card.id;
               return checkSearchValue(card.name) ?
                 <Grid item xs={12} sm={6} md={4}>
-                  <Link to={linkToProduct} onClick={() => {
-                    console.log(linkToProduct)
-                  }}>
+                  <Link to={linkToProduct}>
                     <Card className={classes.card}>
                       <CardMedia
                         className={classes.cardMedia}

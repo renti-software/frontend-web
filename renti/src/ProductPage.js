@@ -1,8 +1,8 @@
 import React from "react";
-import Image from "react-bootstrap/Image";
-import Row from "react-bootstrap/Row";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
+import RentiFooter from "./RentiFooter";
+import Box from "@material-ui/core/Box";
 
 // API stuff
 let API_IP = '192.168.160.62';
@@ -50,7 +50,11 @@ export default class ProductPage extends React.Component {
             {p.description}
           </Typography>
 
+
         </Container>
+        <Box mt={5}>
+          <RentiFooter/>
+        </Box>
       </React.Fragment>
     )
   };
