@@ -16,6 +16,7 @@ import {MdPhone, MdPlace, MdSearch} from "react-icons/md";
 import {IoMdPricetag} from 'react-icons/io';
 import Row from "react-bootstrap/Row";
 import RentiFooter from "./RentiFooter";
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -248,39 +249,42 @@ export default function Marketplace() {
           {/* End hero unit */}
           <Grid container spacing={4}>
             {cards.map((card) => {
+              let linkToProduct = "/product/" + card.id;
               return checkSearchValue(card.name) ?
                 <Grid item xs={12} sm={6} md={4}>
-                  <Card className={classes.card}>
-                    <CardMedia
-                      className={classes.cardMedia}
-                      image={'https://gitlab.com/uploads/-/system/group/avatar/7865598/icon.png?width=64'}
-                      title="Image title"
-                    />
-                    <CardContent style={{textAlign: 'center'}} className={classes.cardContent}>
-                      <Typography gutterBottom variant="h5" component="h3">
-                        {card.name}
-                      </Typography>
-                    </CardContent>
-                    <CardContent style={{textAlign: 'center'}} className={classes.cardContent}>
-                      <Typography gutterBottom>
-                        {card.location.cityName}, {card.location.country}
-                      </Typography>
-                    </CardContent>
-                    <Row style={{textAlign: 'center'}}>
-                      <CardContent
-                        style={{flex: 1, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
-                        <Typography gutterBottom>
-                          {card.price}€ /day
+                  <Link to={linkToProduct} onClick={() => {console.log(linkToProduct)}}>
+                    <Card className={classes.card}>
+                      <CardMedia
+                        className={classes.cardMedia}
+                        image={'https://gitlab.com/uploads/-/system/group/avatar/7865598/icon.png?width=64'}
+                        title="Image title"
+                      />
+                      <CardContent style={{textAlign: 'center'}} className={classes.cardContent}>
+                        <Typography gutterBottom variant="h5" component="h3">
+                          {card.name}
                         </Typography>
                       </CardContent>
-                      <CardActions
-                        style={{flex: 1, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
-                        <Button size="large" style={{color: 'white', backgroundColor: colors.primary}}>
-                          <MdPhone/>
-                        </Button>
-                      </CardActions>
-                    </Row>
-                  </Card>
+                      <CardContent style={{textAlign: 'center'}} className={classes.cardContent}>
+                        <Typography gutterBottom>
+                          {card.location.cityName}, {card.location.country}
+                        </Typography>
+                      </CardContent>
+                      <Row style={{textAlign: 'center'}}>
+                        <CardContent
+                          style={{flex: 1, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
+                          <Typography gutterBottom>
+                            {card.price}€ /day
+                          </Typography>
+                        </CardContent>
+                        <CardActions
+                          style={{flex: 1, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
+                          <Button size="large" style={{color: 'white', backgroundColor: colors.primary}}>
+                            <MdPhone/>
+                          </Button>
+                        </CardActions>
+                      </Row>
+                    </Card>
+                  </Link>
                 </Grid>
                 :
                 <Grid/>
