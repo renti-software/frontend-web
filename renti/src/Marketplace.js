@@ -14,7 +14,6 @@ import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import {MdPhone, MdPlace, MdSearch} from "react-icons/md";
 import {IoMdPricetag} from 'react-icons/io';
-import {FaGitlab} from 'react-icons/fa';
 import Row from "react-bootstrap/Row";
 import RentiFooter from "./RentiFooter";
 
