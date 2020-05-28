@@ -25,6 +25,7 @@ test:
   stage: Test
   script:
     - echo "Testing..."
+    - npm install -g --only=dev
     - cd renti/tests/
     - npm test
 
