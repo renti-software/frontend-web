@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import colors from './Colors';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -13,7 +13,7 @@ import Container from '@material-ui/core/Container';
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import {MdPhone, MdPlace, MdSearch} from "react-icons/md";
-import {IoMdPricetag} from 'react-icons/io';
+import {IoMdPricetag, IoMdTrash, IoMdCheckmark} from 'react-icons/io';
 import {FaGitlab} from 'react-icons/fa';
 import Row from "react-bootstrap/Row";
 import RentiFooter from "./RentiFooter";
@@ -70,7 +70,8 @@ export default function MyRentals() {
   const classes = useStyles();
 
   function makeProductRequest() {
-    fetch(`${API_URL}/products`)
+    //change this line into the users ID, so we can fetch only his
+    fetch(`${API_URL}/products?userId=4`)
     //here have the user ID to show only his
       .then(res => res.json())
       .then(result => {
@@ -86,6 +87,10 @@ export default function MyRentals() {
         }
       )
   }
+
+  useEffect(() => {
+    makeProductRequest()
+  })
 
   //dumb hardcoded flag to bypass refactoring and precious time
   function checkSearchValue() {
@@ -136,7 +141,13 @@ export default function MyRentals() {
                       <CardActions
                         style={{flex: 1, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
                         <Button size="large" style={{color: 'white', backgroundColor: colors.primary}}>
-                          <MdPhone/>
+                          <IoMdCheckmark/>
+                        </Button>
+                      </CardActions>
+                      <CardActions
+                        style={{flex: 1, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
+                        <Button size="large" style={{color: 'white', backgroundColor: colors.orange}}>
+                          <IoMdTrash/>
                         </Button>
                       </CardActions>
                     </Row>
