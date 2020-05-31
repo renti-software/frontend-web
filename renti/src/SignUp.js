@@ -124,6 +124,52 @@ export default function SignUp() {
     setPassword(sv)
   }
 
+  function handleRegister(){
+    if (email=='' || name=='' || location=='' || password=='') {
+      alert("Fill in the required information!")
+  } else {
+      console.log("Fetching:" + `${API_URL}/users`)
+      console.log(JSON.stringify({ //change these params later
+          email:email,
+          name:name,
+          location: location,
+          password:password, //this shouldnt go out as clear text
+      }))
+  fetch(`${API_URL}/users`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ //change these params later
+          email:email,
+          name:name,
+          location: { id :location},
+          password:password, //this shouldnt go out as clear text
+      }),
+    }).then((response) => response.json())
+    .then((json) => {
+          console.log(json);
+          if (json.error){
+          //Credentials incorrect
+              alert(json.message)
+          }
+          else { 
+              alert("Account created with success!")
+              history.push('/')
+          }
+    })
+    .catch((error) => {
+        alert("Error fetching login")
+        console.log(error);
+    });
+  }
+  }
+
+  function handleLocation(text){
+    setLocation(text.value)
+  }
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -173,12 +219,13 @@ export default function SignUp() {
                 autoComplete="current-password"
               />
             </Grid>
-            <Dropdown options={cities} placeholder="Select an option" />
+            <Dropdown onChange={(text) => handleLocation(text)} options={cities} placeholder="Select an option" />
           </Grid>
           <Button
             fullWidth
             variant="contained"
             color="primary"
+            onClick={() => handleRegister()}
             className={classes.submit}
           >
             Sign Up
