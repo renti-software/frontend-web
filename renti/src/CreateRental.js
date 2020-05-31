@@ -167,51 +167,55 @@ export default function SignUp() {
   function handleCreate(){
     let userID = localStorage.getItem('userID')
     console.log('user id is: ', userID)
-    if (userID==null || name=='' || location=='' || category=='' || price=='' || imageLink=='') {
-      alert("Fill in the required information!")
-  } else {
-      console.log("Fetching:" + `${API_URL}/products`)
-      console.log(JSON.stringify({     
-        name : name,     
-        price : price,    
-        category : category,
-        imageLink : imageLink,
-        description : description,
-        user : {      id : userID     },     
-        location : {      id : location     } 
-      }))
-  fetch(`${API_URL}/products`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({     
-        name : name,     
-        price : price,    
-        category : category,
-        imageLink : imageLink,
-        description : description,
-        user : {      id : userID     },     
-        location : {      id : location     } 
-      }),
-    }).then((response) => response.json())
-    .then((json) => {
-          console.log(json);
-          if (json.error){
-          //Credentials incorrect
-              alert(json.message)
-          }
-          else { 
-              alert("Product created with success!")
-              history.push('/')
-          }
-    })
-    .catch((error) => {
-        alert("Error posting product!")
-        console.log(error);
-    });
-  }
+    if (userID==null) {
+      alert("Login before posting products!")
+    } else {
+      if (name=='' || location=='' || category=='' || price=='' || imageLink=='') {
+        alert("Fill in the required information!")
+    } else {
+        console.log("Fetching:" + `${API_URL}/products`)
+        console.log(JSON.stringify({     
+          name : name,     
+          price : price,    
+          category : category,
+          imageLink : imageLink,
+          description : description,
+          user : {      id : userID     },     
+          location : {      id : location     } 
+        }))
+    fetch(`${API_URL}/products`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({     
+          name : name,     
+          price : price,    
+          category : category,
+          imageLink : imageLink,
+          description : description,
+          user : {      id : userID     },     
+          location : {      id : location     } 
+        }),
+      }).then((response) => response.json())
+      .then((json) => {
+            console.log(json);
+            if (json.error){
+            //Credentials incorrect
+                alert(json.message)
+            }
+            else { 
+                alert("Product created with success!")
+                history.push('/')
+            }
+      })
+      .catch((error) => {
+          alert("Error posting product!")
+          console.log(error);
+      });
+    }
+    }
   }
 
   return (
