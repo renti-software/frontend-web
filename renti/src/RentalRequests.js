@@ -142,7 +142,10 @@ export default function MyRentals() {
                     </CardContent>
                     <CardContent style={{textAlign: 'center'}} className={classes.cardContent}>
                       <Typography gutterBottom>
-                        {card.location.cityName}, {card.location.country}
+                        31/05/2020 to 03/06/2020
+                      </Typography>
+                      <Typography gutterBottom>
+                        From: Tomas Costa
                       </Typography>
                     </CardContent>
                     <Row style={{textAlign: 'center'}}>
