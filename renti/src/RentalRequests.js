@@ -71,6 +71,7 @@ export default function MyRentals() {
   const [cards, setCards] = useState([]);
   const classes = useStyles();
 
+  //only fetch prodcuts with approval=false
   function makeProductRequest() {
     let userID = localStorage.getItem('userID')
     console.log('user id is: ', userID)
@@ -94,6 +95,66 @@ export default function MyRentals() {
       )
       }
   }
+
+  function approveRental(){
+      alert("going to approve")
+      putApproval()
+  }
+
+  //PUT, change product approval to true
+  function putApproval() {
+    let userID = localStorage.getItem('userID')
+    console.log('user id is: ', userID)
+    if (userID==null) {
+      alert("Login to see your rentals.")
+    } else {
+    fetch(`${API_URL}/products?userId=${userID}`)
+    //here have the user ID to show only his
+      .then(res => res.json())
+      .then(result => {
+          console.log(`Products fetched:`)
+          console.log(result)
+          setCards(result)
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          alert("Error fetching products!")
+        }
+      )
+      }
+  }
+
+  function deleteRental(){
+    alert("going to delete")
+    delApproval()
+  }
+
+//PUT, change product approval to true
+function delApproval() {
+  let userID = localStorage.getItem('userID')
+  console.log('user id is: ', userID)
+  if (userID==null) {
+    alert("Login to see your rentals.")
+  } else {
+  fetch(`${API_URL}/products?userId=${userID}`)
+  //here have the user ID to show only his
+    .then(res => res.json())
+    .then(result => {
+        console.log(`Products fetched:`)
+        console.log(result)
+        setCards(result)
+      },
+      // Note: it's important to handle errors here
+      // instead of a catch() block so that we don't swallow
+      // exceptions from actual bugs in components.
+      (error) => {
+        alert("Error fetching products!")
+      }
+    )
+    }
+}
 
   useEffect(() => {
     makeProductRequest()
@@ -151,13 +212,13 @@ export default function MyRentals() {
                     <Row style={{textAlign: 'center'}}>
                       <CardActions
                         style={{flex: 2, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
-                        <Button size="medium" style={{color: 'white', backgroundColor: colors.primary, minWidth:110}}>
+                        <Button size="medium" onClick={() => approveRental(card.id,true)} style={{color: 'white', backgroundColor: colors.primary, minWidth:110}}>
                           Approve
                         </Button>
                       </CardActions>
                       <CardActions
                         style={{flex: 2, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
-                        <Button size="medium" style={{color: 'white', backgroundColor: 'red', minWidth:110}}>
+                        <Button size="medium" onClick={() => deleteRental(card.id)} style={{color: 'white', backgroundColor: 'red', minWidth:110}}>
                           Dissaprove
                         </Button>
                       </CardActions>
