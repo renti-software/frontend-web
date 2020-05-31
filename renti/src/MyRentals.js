@@ -71,7 +71,7 @@ export default function MyRentals() {
 
   function makeProductRequest() {
     //change this line into the users ID, so we can fetch only his
-    fetch(`${API_URL}/products?userId=4`)
+    fetch(`${API_URL}/products?userId=2`)
     //here have the user ID to show only his
       .then(res => res.json())
       .then(result => {
@@ -137,21 +137,21 @@ export default function MyRentals() {
                     </CardContent>
                     <Row style={{textAlign: 'center'}}>
                       <CardContent
-                        style={{flex: 1, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
+                        style={{flex: 2, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
                         <Typography gutterBottom>
                           {card.price}€ /day
                         </Typography>
                       </CardContent>
                       <CardActions
                         style={{flex: 1, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
-                        <Button size="large" style={{color: 'white', backgroundColor: colors.primary}}>
-                          <IoMdCheckmark/>
+                        <Button size="small" style={{color: 'white', backgroundColor: colors.primary}}>
+                          Rent
                         </Button>
                       </CardActions>
                       <CardActions
-                        style={{flex: 1, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
-                        <Button size="large" style={{color: 'white', backgroundColor: colors.orange}}>
-                          <IoMdTrash/>
+                        style={{flex: 2, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
+                        <Button size="small" style={{color: 'white', backgroundColor: colors.orange}}>
+                          Remove
                         </Button>
                       </CardActions>
                     </Row>
