@@ -70,7 +70,11 @@ export default function Favourites() {
   const classes = useStyles();
 
   function makeProductRequest() {
-    //change this line into the users ID, so we can fetch only his
+    let userID = localStorage.getItem('userID')
+    console.log('user id is: ', userID)
+    if (userID==null) {
+      alert("Login to see your favourites.")
+    } else {
     fetch(`${API_URL}/products`)
     //here have the user ID to show only his
       .then(res => res.json())
@@ -86,11 +90,12 @@ export default function Favourites() {
           alert("Error fetching products!")
         }
       )
+    }
   }
 
   useEffect(() => {
     makeProductRequest()
-  })
+  }, [])
 
   //dumb hardcoded flag to bypass refactoring and precious time
   function checkSearchValue() {

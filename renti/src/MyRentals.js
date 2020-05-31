@@ -70,8 +70,12 @@ export default function MyRentals() {
   const classes = useStyles();
 
   function makeProductRequest() {
-    //change this line into the users ID, so we can fetch only his
-    fetch(`${API_URL}/products?userId=2`)
+    let userID = localStorage.getItem('userID')
+    console.log('user id is: ', userID)
+    if (userID==null) {
+      alert("Login to see your rentals.")
+    } else {
+    fetch(`${API_URL}/products?userId=${userID}`)
     //here have the user ID to show only his
       .then(res => res.json())
       .then(result => {
@@ -86,11 +90,12 @@ export default function MyRentals() {
           alert("Error fetching products!")
         }
       )
+      }
   }
 
   useEffect(() => {
     makeProductRequest()
-  })
+  }, [])
 
   //dumb hardcoded flag to bypass refactoring and precious time
   function checkSearchValue() {
