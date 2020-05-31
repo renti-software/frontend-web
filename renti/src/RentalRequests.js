@@ -120,13 +120,13 @@ export default function MyRentals() {
     //here have the user ID to show only his
       .then(res => res.json())
       .then(result => {
-          alert("Deleted with success")
+          alert("Approved with success")
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
         // exceptions from actual bugs in components.
         (error) => {
-          alert("Error fetching products!")
+          alert("Error approving!")
         }
       )
       }
@@ -148,11 +148,7 @@ function delApproval(prod_id) {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({     
-      id : prod_id,     
-      price : priceParsed,    
-    }
-  )})
+    })
   //here have the user ID to show only his
     .then(res => res.json())
     .then(result => {
@@ -224,7 +220,7 @@ function delApproval(prod_id) {
                     <Row style={{textAlign: 'center'}}>
                       <CardActions
                         style={{flex: 2, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
-                        <Button size="medium" onClick={() => approveRental(card.id,true)} style={{color: 'white', backgroundColor: colors.primary, minWidth:110}}>
+                        <Button size="medium" onClick={() => approveRental(card.id)} style={{color: 'white', backgroundColor: colors.primary, minWidth:110}}>
                           Approve
                         </Button>
                       </CardActions>
