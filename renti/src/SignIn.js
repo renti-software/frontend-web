@@ -13,20 +13,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Colors from "./Colors";
 import RentiFooter from "./RentiFooter";
-import {Link} from "react-router-dom";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" to="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import {Link, useHistory} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -61,6 +48,8 @@ console.log(API_URL)
 
 export default function SignIn() {
   const classes = useStyles();
+  const history = useHistory();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -89,6 +78,7 @@ export default function SignIn() {
           } else {
             
             alert(`Welcome to Renti, ${json.user.name}`)
+            history.push('/')
             //change route
 
           }
