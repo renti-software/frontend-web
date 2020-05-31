@@ -114,8 +114,8 @@ export default function MyRentals() {
             <Typography component="h4" variant="h3" align="center" color={colors.secondary} gutterBottom>
               Check your rentals
             </Typography>  
-            <Link variant="body2" to="/rental_requests">
-                Check your rentals requests!
+            <Link variant="body2" to="/my_rentals">
+                Go back to rentals
               </Link>         
           </Container>
         </div>
