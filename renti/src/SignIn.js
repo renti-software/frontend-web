@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,20 +13,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Colors from "./Colors";
 import RentiFooter from "./RentiFooter";
-import {Link} from "react-router-dom";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" to="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import {Link, useHistory} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -48,8 +35,71 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+//const API_URL = "http://192.168.160.62:8080";
+
+let API_IP = '192.168.160.62';
+if (process.env.REACT_APP_API_IP) {
+  API_IP = process.env.REACT_APP_API_IP;
+}
+
+const API_URL = "http://" + API_IP + ":8080";
+console.log(API_URL)
+
 export default function SignIn() {
   const classes = useStyles();
+  const history = useHistory();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  function handleLogin(){
+    if (email == "" || password == "") {
+      alert("Fill in the login information");
+    } else {
+      console.log("Fetching:" + `${API_URL}/login`);
+      fetch(`${API_URL}/login`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password
+        })
+      })
+        .then(response => response.json())
+        .then(json => {
+          console.log(json);
+          if (json.error) {
+            //Credentials incorrect
+            alert("Login Credentials are invalid.");
+          } else {
+            
+            alert(`Welcome to Renti, ${json.user.name}`)
+            history.push('/')
+            //change route
+
+          }
+        })
+        .catch(error => {
+          alert("Error fetching login");
+          console.log(error);
+        });
+    }
+  }
+
+  //functions to handle events
+  function handleUsername(event) {
+    let sv = event.target.value
+    setEmail(sv)
+  }
+
+  function handlePassword(event) {
+    let sv = event.target.value
+    setPassword(sv)
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -68,6 +118,7 @@ export default function SignIn() {
             required
             fullWidth
             id="email"
+            onChange={handleUsername.bind(this)}
             label="Email Address"
             name="email"
             autoComplete="email"
@@ -81,6 +132,7 @@ export default function SignIn() {
             name="password"
             label="Password"
             type="password"
+            onChange={handlePassword.bind(this)}
             id="password"
             autoComplete="current-password"
           />
@@ -89,10 +141,10 @@ export default function SignIn() {
             label="Remember me"
           />
           <Button
-            type="submit"
             fullWidth
             variant="contained"
             color="primary"
+            onClick={() => handleLogin()}
             className={classes.submit}
             style={{backgroundColor: Colors.primary}}
           >
