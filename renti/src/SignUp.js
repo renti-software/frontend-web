@@ -155,7 +155,8 @@ export default function SignUp() {
               alert(json.message)
           }
           else { 
-              alert("Account created with success!")
+              alert("Account created with success: ", json.id)
+              localStorage.setItem('userID', json.id)
               history.push('/')
           }
     })
