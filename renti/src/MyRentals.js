@@ -148,14 +148,8 @@ export default function MyRentals() {
                         </Typography>
                       </CardContent>
                       <CardActions
-                        style={{flex: 1, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
-                        <Button size="small" style={{color: 'white', backgroundColor: colors.primary}}>
-                          Rent
-                        </Button>
-                      </CardActions>
-                      <CardActions
                         style={{flex: 2, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
-                        <Button size="small" style={{color: 'white', backgroundColor: colors.orange}}>
+                        <Button size="medium" style={{color: 'white', backgroundColor: colors.orange}}>
                           Remove
                         </Button>
                       </CardActions>
