@@ -77,6 +77,7 @@ export default function SignUp() {
     ]
   )
   const [location,setLocation] = useState('')
+  const [locationName,setLocationName] = useState('')
   const [description,setDescription] = useState('')
   const [cities,setCities] = useState([])
   const [price,setPrice] = useState(0)
@@ -138,12 +139,19 @@ export default function SignUp() {
   }
 
   function handleCategory(event) {
-    alert(event.value)
     setCategory(event.value)
+    setLocation(location)
+  }
+
+  function handleDescription(event) {
+    let sv = event.target.value
+    setDescription(sv)
   }
 
   function handleLocation(text){
     setLocation(text.value)
+    setLocationName(text.label)
+    setCategory(category)
   }
 
   function handlePrice(event) {
@@ -158,6 +166,7 @@ export default function SignUp() {
 
   function handleCreate(){
     let userID = localStorage.getItem('userID')
+    console.log('user id is: ', userID)
     if (userID==null || name=='' || location=='' || category=='' || price=='' || imageLink=='') {
       alert("Fill in the required information!")
   } else {
@@ -221,6 +230,7 @@ export default function SignUp() {
                 required
                 fullWidth
                 id="product_name"
+                onChange={handleName.bind(this)}
                 label="Product Name"
                 autoFocus
               />
@@ -231,6 +241,7 @@ export default function SignUp() {
                 required
                 fullWidth
                 id="description"
+                onChange={handleDescription.bind(this)}
                 label="Description"
                 name="description"
               />
@@ -242,6 +253,7 @@ export default function SignUp() {
                 fullWidth
                 name="price"
                 label="Price"
+                onChange={handlePrice.bind(this)}
                 type="number"
                 id="price"
 
@@ -253,6 +265,7 @@ export default function SignUp() {
                 required
                 fullWidth
                 name="image"
+                onChange={handleImageLink.bind(this)}
                 label="Image Link"
                 type="text"
                 id="image"
@@ -260,11 +273,11 @@ export default function SignUp() {
             </Grid>
 
             <Grid item xs={12}>
-              <Dropdown  onChange={(text) => handleLocation(text)} options={cities} placeholder="Select a city" />
+              <Dropdown value={locationName} onChange={(text) => handleLocation(text)} options={cities} placeholder="Select a city" />
             </Grid>
-            
+
             <Grid item xs={12}>
-              <Dropdown onChange={(text) => handleCategory(text)} options={categories} placeholder="Select a category" />
+              <Dropdown value={category} onChange={(text) => handleCategory(text)} options={categories} placeholder="Select a category" />
             </Grid>
 
           </Grid>

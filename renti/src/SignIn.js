@@ -78,6 +78,7 @@ export default function SignIn() {
           } else {
             
             alert(`Welcome to Renti, ${json.user.name}`)
+            localStorage.setItem('userID', json.user.id)
             history.push('/')
             //change route
 
