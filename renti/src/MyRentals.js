@@ -114,9 +114,12 @@ export default function MyRentals() {
             <Typography component="h4" variant="h3" align="center" color={colors.secondary} gutterBottom>
               Check your rentals
             </Typography>  
-            <Link variant="body2" to="/rental_requests">
-                Check your rentals requests!
-              </Link>         
+            <Button size="medium" style={{color: 'white', backgroundColor: colors.primary}}>
+                <Link style={{color:'white'}} variant="" to="/rental_requests">
+                  rental requests
+                </Link>
+            </Button>
+                     
           </Container>
         </div>
         <Container className={classes.cardGrid} maxWidth="md">

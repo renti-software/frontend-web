@@ -114,7 +114,7 @@ export default function MyRentals() {
             <Typography component="h4" variant="h3" align="center" color={colors.secondary} gutterBottom>
               Check your rentals
             </Typography>  
-            <Link variant="body2" to="/my_rentals">
+            <Link variant="h2" to="/my_rentals">
                 Go back to rentals
               </Link>         
           </Container>
@@ -146,16 +146,16 @@ export default function MyRentals() {
                       </Typography>
                     </CardContent>
                     <Row style={{textAlign: 'center'}}>
-                      <CardContent
-                        style={{flex: 2, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
-                        <Typography gutterBottom>
-                          {card.price}€ /day
-                        </Typography>
-                      </CardContent>
                       <CardActions
                         style={{flex: 2, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
-                        <Button size="medium" style={{color: 'white', backgroundColor: colors.orange}}>
-                          Remove
+                        <Button size="medium" style={{color: 'white', backgroundColor: colors.primary, minWidth:110}}>
+                          Approve
+                        </Button>
+                      </CardActions>
+                      <CardActions
+                        style={{flex: 2, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
+                        <Button size="medium" style={{color: 'white', backgroundColor: 'red', minWidth:110}}>
+                          Dissaprove
                         </Button>
                       </CardActions>
                     </Row>
