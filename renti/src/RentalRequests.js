@@ -102,19 +102,25 @@ export default function MyRentals() {
   }
 
   //PUT, change product approval to true
-  function putApproval() {
-    let userID = localStorage.getItem('userID')
-    console.log('user id is: ', userID)
-    if (userID==null) {
-      alert("Login to see your rentals.")
+  function putApproval(prod_id) {
+    if (prod_id==null) {
+      alert("Failed to delete product")
     } else {
-    fetch(`${API_URL}/products?userId=${userID}`)
+    fetch(`${API_URL}/rentals?id=${prod_id}`, {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({     
+        id : prod_id,     
+        approved : true,    
+      }
+    )})
     //here have the user ID to show only his
       .then(res => res.json())
       .then(result => {
-          console.log(`Products fetched:`)
-          console.log(result)
-          setCards(result)
+          alert("Deleted with success")
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
@@ -132,19 +138,25 @@ export default function MyRentals() {
   }
 
 //PUT, change product approval to true
-function delApproval() {
-  let userID = localStorage.getItem('userID')
-  console.log('user id is: ', userID)
-  if (userID==null) {
-    alert("Login to see your rentals.")
+function delApproval(prod_id) {
+  if (prod_id==null) {
+    alert("Failed to delete product")
   } else {
-  fetch(`${API_URL}/products?userId=${userID}`)
+  fetch(`${API_URL}/rentals?id=${prod_id}`, {
+    method: 'DELETE',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({     
+      id : prod_id,     
+      price : priceParsed,    
+    }
+  )})
   //here have the user ID to show only his
     .then(res => res.json())
     .then(result => {
-        console.log(`Products fetched:`)
-        console.log(result)
-        setCards(result)
+        alert("Deleted with success")
       },
       // Note: it's important to handle errors here
       // instead of a catch() block so that we don't swallow
