@@ -64,14 +64,14 @@ if (process.env.REACT_APP_API_IP) {
 const API_URL = "http://" + API_IP + ":8080";
 console.log(API_URL)
 
-export default function MyRentals() {
+export default function Favourites() {
 
   const [cards, setCards] = useState([]);
   const classes = useStyles();
 
   function makeProductRequest() {
     //change this line into the users ID, so we can fetch only his
-    fetch(`${API_URL}/products?userId=4`)
+    fetch(`${API_URL}/products`)
     //here have the user ID to show only his
       .then(res => res.json())
       .then(result => {
@@ -105,7 +105,7 @@ export default function MyRentals() {
         <div className={classes.heroContent}>
           <Container maxWidth="md">
             <Typography component="h4" variant="h3" align="center" color={colors.secondary} gutterBottom>
-              Check your rentals
+              Favourites
             </Typography>              
           </Container>
         </div>
@@ -113,10 +113,10 @@ export default function MyRentals() {
           {/* End hero unit */}
           <Grid container spacing={4}>
             {cards.map((card) => {
-              let image = card.imageLink;
-              if (image==null) {
-                  image = 'https://www.geographicexperiences.com/wp-content/uploads/revslider/home5/placeholder-1200x500.png'
-              };
+                let image = card.imageLink;
+                if (image==null) {
+                    image = 'https://www.geographicexperiences.com/wp-content/uploads/revslider/home5/placeholder-1200x500.png'
+                };
               return checkSearchValue(card.name) ?
                 <Grid item xs={12} sm={6} md={4}>
                   <Card className={classes.card}>

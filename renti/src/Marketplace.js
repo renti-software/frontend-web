@@ -249,12 +249,16 @@ export default function Marketplace() {
           {/* End hero unit */}
           <Grid container spacing={4}>
             {cards.map((card) => {
+              let image = card.imageLink;
+              if (image==null) {
+                  image = 'https://www.geographicexperiences.com/wp-content/uploads/revslider/home5/placeholder-1200x500.png'
+              };
               return checkSearchValue(card.name) ?
                 <Grid item xs={12} sm={6} md={4}>
                   <Card className={classes.card}>
                     <CardMedia
                       className={classes.cardMedia}
-                      image={'https://gitlab.com/uploads/-/system/group/avatar/7865598/icon.png?width=64'}
+                      image={image}
                       title="Image title"
                     />
                     <CardContent style={{textAlign: 'center'}} className={classes.cardContent}>
