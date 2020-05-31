@@ -119,7 +119,7 @@ export default function Favourites() {
           <Grid container spacing={4}>
             {cards.map((card) => {
                 let image = card.imageLink;
-                if (image==null) {
+                if (image==null || image=="") {
                     image = 'https://www.geographicexperiences.com/wp-content/uploads/revslider/home5/placeholder-1200x500.png'
                 };
               return checkSearchValue(card.name) ?

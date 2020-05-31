@@ -119,8 +119,8 @@ export default function MyRentals() {
           <Grid container spacing={4}>
             {cards.map((card) => {
               let image = card.imageLink;
-              if (image==null) {
-                  image = 'https://www.geographicexperiences.com/wp-content/uploads/revslider/home5/placeholder-1200x500.png'
+              if (image==null || image=="") {
+                image = 'https://www.geographicexperiences.com/wp-content/uploads/revslider/home5/placeholder-1200x500.png'
               };
               return checkSearchValue(card.name) ?
                 <Grid item xs={12} sm={6} md={4}>
