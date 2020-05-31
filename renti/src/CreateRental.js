@@ -65,6 +65,17 @@ export default function SignUp() {
 
   const [name,setName] = useState('')
   const [category,setCategory] = useState('')
+  //this will be similar to locations in future iterations, so the admins can add more categories
+  const [categories, setCategories] = useState(
+    [
+      {label: 'Clothing', value: 'Clothing' },
+      {label: 'Household', value: 'Household' },
+      {label: 'Tools', value: 'Tools' },
+      {label: 'Electronics', value: 'Electronics' },
+      {label: 'Entertainment', value: 'Entertainment' },
+      {label: 'Miscellaneous', value: 'Miscellaneous' },
+    ]
+  )
   const [location,setLocation] = useState('')
   const [description,setDescription] = useState('')
   const [cities,setCities] = useState([])
@@ -127,8 +138,8 @@ export default function SignUp() {
   }
 
   function handleCategory(event) {
-    let sv = event.target.value
-    setCategory(sv)
+    alert(event.value)
+    setCategory(event.value)
   }
 
   function handleLocation(text){
@@ -219,16 +230,6 @@ export default function SignUp() {
                 variant="outlined"
                 required
                 fullWidth
-                id="category"
-                label="Category"
-                name="category"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
                 id="description"
                 label="Description"
                 name="description"
@@ -257,7 +258,15 @@ export default function SignUp() {
                 id="image"
               />
             </Grid>
-            <Dropdown onChange={(text) => handleLocation(text)} options={cities} placeholder="Select an option" />
+
+            <Grid item xs={12}>
+              <Dropdown  onChange={(text) => handleLocation(text)} options={cities} placeholder="Select a city" />
+            </Grid>
+            
+            <Grid item xs={12}>
+              <Dropdown onChange={(text) => handleCategory(text)} options={categories} placeholder="Select a category" />
+            </Grid>
+
           </Grid>
           <Button
             fullWidth
