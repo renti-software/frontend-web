@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -53,9 +53,60 @@ export default function SignUp() {
   const history = useHistory();
 
   const [email, setEmail] = useState('');
+  //start these off as empty, then fill with get of locations
+  const [cities, setCities] = useState([]);
   const [location, setLocation] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect( () => {
+    getCities()
+  }, []) //this empty array makes the use effect only once
+
+  function getCities(){
+    let base_link = `${API_URL}/locations`
+    console.log(base_link)
+      fetch(base_link, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        }
+      })
+        .then((response) => response.json())
+        .then(json => {
+          console.log(json)
+          if (json.error) {
+            alert("Failed fetching cities!");
+          } else {
+            // Success
+            let message = json
+            let new_cities = []
+
+            for (let index = 0; index < message.length; index++) {
+              const city = message[index];
+
+              var dict = {
+                label : city.cityName,
+                value : city.id,
+              }
+
+              new_cities.push(dict)
+              
+            }
+
+            console.log(new_cities)
+
+            // solution nº46
+            setCities(new_cities)
+
+          }
+        })
+        .catch(error => {
+          alert("Error fetching cities.");
+          console.log(error);
+        });
+  }
 
   //functions to handle events
   function handleEmail(event) {
@@ -122,6 +173,7 @@ export default function SignUp() {
                 autoComplete="current-password"
               />
             </Grid>
+            <Dropdown options={cities} placeholder="Select an option" />
           </Grid>
           <Button
             fullWidth
