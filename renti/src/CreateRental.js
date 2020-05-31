@@ -166,6 +166,7 @@ export default function SignUp() {
 
   function handleCreate(){
     let userID = localStorage.getItem('userID')
+    let priceParsed = parseFloat(price)
     console.log('user id is: ', userID)
     if (userID==null) {
       alert("Login before posting products!")
@@ -176,7 +177,7 @@ export default function SignUp() {
         console.log("Fetching:" + `${API_URL}/products`)
         console.log(JSON.stringify({     
           name : name,     
-          price : price,    
+          price : priceParsed,    
           category : category,
           imageLink : imageLink,
           description : description,
@@ -191,7 +192,7 @@ export default function SignUp() {
         },
         body: JSON.stringify({     
           name : name,     
-          price : price,    
+          price : priceParsed,    
           category : category,
           imageLink : imageLink,
           description : description,
