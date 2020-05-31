@@ -71,6 +71,7 @@ export default function MyRentals() {
   const [cards, setCards] = useState([]);
   const classes = useStyles();
 
+  //only fetch prodcuts with approval=false
   function makeProductRequest() {
     let userID = localStorage.getItem('userID')
     console.log('user id is: ', userID)
@@ -95,6 +96,74 @@ export default function MyRentals() {
       }
   }
 
+  function approveRental(){
+      alert("going to approve")
+      putApproval()
+  }
+
+  //PUT, change product approval to true
+  function putApproval(prod_id) {
+    if (prod_id==null) {
+      alert("Failed to delete product")
+    } else {
+    fetch(`${API_URL}/rentals?id=${prod_id}`, {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({     
+        id : prod_id,     
+        approved : true,    
+      }
+    )})
+    //here have the user ID to show only his
+      .then(res => res.json())
+      .then(result => {
+          alert("Approved with success")
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          alert("Error approving!")
+        }
+      )
+      }
+  }
+
+  function deleteRental(){
+    alert("going to delete")
+    delApproval()
+  }
+
+//PUT, change product approval to true
+function delApproval(prod_id) {
+  if (prod_id==null) {
+    alert("Failed to delete product")
+  } else {
+  fetch(`${API_URL}/rentals?id=${prod_id}`, {
+    method: 'DELETE',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    })
+  //here have the user ID to show only his
+    .then(res => res.json())
+    .then(result => {
+        alert("Deleted with success")
+      },
+      // Note: it's important to handle errors here
+      // instead of a catch() block so that we don't swallow
+      // exceptions from actual bugs in components.
+      (error) => {
+        alert("Error fetching products!")
+      }
+    )
+    }
+}
+
   useEffect(() => {
     makeProductRequest()
   }, [])
@@ -114,12 +183,9 @@ export default function MyRentals() {
             <Typography component="h4" variant="h3" align="center" color={colors.secondary} gutterBottom>
               Check your rentals
             </Typography>  
-            <Button size="medium" style={{color: 'white', backgroundColor: colors.primary}}>
-                <Link style={{color:'white'}} variant="" to="/rental_requests">
-                  rental requests
-                </Link>
-            </Button>
-                     
+            <Link variant="h2" to="/my_rentals">
+                Go back to rentals
+              </Link>         
           </Container>
         </div>
         <Container className={classes.cardGrid} maxWidth="md">
@@ -145,20 +211,23 @@ export default function MyRentals() {
                     </CardContent>
                     <CardContent style={{textAlign: 'center'}} className={classes.cardContent}>
                       <Typography gutterBottom>
-                        {card.location.cityName}, {card.location.country}
+                        31/05/2020 to 03/06/2020
+                      </Typography>
+                      <Typography gutterBottom>
+                        From: Tomas Costa
                       </Typography>
                     </CardContent>
                     <Row style={{textAlign: 'center'}}>
-                      <CardContent
-                        style={{flex: 2, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
-                        <Typography gutterBottom>
-                          {card.price}€ /day
-                        </Typography>
-                      </CardContent>
                       <CardActions
                         style={{flex: 2, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
-                        <Button size="medium" style={{color: 'white', backgroundColor: colors.orange}}>
-                          Remove
+                        <Button size="medium" onClick={() => approveRental(card.id)} style={{color: 'white', backgroundColor: colors.primary, minWidth:110}}>
+                          Approve
+                        </Button>
+                      </CardActions>
+                      <CardActions
+                        style={{flex: 2, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
+                        <Button size="medium" onClick={() => deleteRental(card.id)} style={{color: 'white', backgroundColor: 'red', minWidth:110}}>
+                          Dissaprove
                         </Button>
                       </CardActions>
                     </Row>

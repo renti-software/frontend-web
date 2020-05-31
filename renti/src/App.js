@@ -8,7 +8,7 @@ import Favourites from "./Favourites";
 import SignUp from "./SignUp";
 import CreateRental from "./CreateRental";
 import MyRentals from "./MyRentals";
-
+import RentalRequests from "./RentalRequests";
 
 function App() {
   return (
@@ -22,6 +22,7 @@ function App() {
           <Route path="/favourites" component={Favourites}/>
           <Route path="/register" component={SignUp}/>
           <Route path="/my_rentals" component={MyRentals}/>
+          <Route path="/rental_requests" component={RentalRequests}/>
         </main>
       </Router>
     </div>
