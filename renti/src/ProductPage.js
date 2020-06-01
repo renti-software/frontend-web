@@ -33,7 +33,11 @@ export default class ProductPage extends React.Component {
 
 
   handleProduct(prod_id){
-    alert("Prod")
+    fetch(API_URL + this.props.match.params.id)
+      .then(res => res.json())
+      .then(result => {
+        this.setState({product: result, location: result.location});
+      });
   }
 
   Product() {
@@ -50,15 +54,13 @@ export default class ProductPage extends React.Component {
     console.log(p);
     return (
       <React.Fragment>
+
         <Container style={{alignItems:'flex-start',justifyContent:'flex-start', marginTop: 40}}>
-          <Link>Go Back</Link>
-        </Container>
-        <Container>
           <img
             src={p.imageLink}
             style={{maxHeight:200}}
           />
-          <Typography variant="h4">
+          <Typography variant="h4" style={{marginTop: 20}}>
             {p.name}
           </Typography>
           <Typography variant="body1">
