@@ -65,13 +65,13 @@ export default class ProductPage extends React.Component {
       //here have the user ID to show only his
         .then(res => res.json())
         .then(result => {
-            alert("Created rental with success!")
+            alert("You have requested this product to the owner!")
           },
           // Note: it's important to handle errors here
           // instead of a catch() block so that we don't swallow
           // exceptions from actual bugs in components.
           (error) => {
-            alert("Error approving!")
+            alert("Error requesting!")
           }
         );
         
