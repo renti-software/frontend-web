@@ -83,7 +83,7 @@ export default function Favourites() {
           console.log(result)
           if(Array.isArray(result)){
             setCards(result)
-          })
+          }
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow

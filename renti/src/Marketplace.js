@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import colors from './Colors';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -76,6 +76,8 @@ export default function Marketplace() {
   const [paramMaxPrice, setParamMaxPrice] = useState('');
   const [paramOrder, setParamOrder] = useState('');
   const [paramOrderAsc, setParamOrderAsc] = useState('');
+
+
 
   function makeProductRequest() {
     console.log(`Params: \nLocation: ${paramLocation}\nCategory: ${paramCategory}\nMinPrice: ${paramMinPrice}\nMaxPrice: ${paramMaxPrice} `)
@@ -167,6 +169,8 @@ export default function Marketplace() {
   function checkSearchValue(card_name) {
     return card_name.toLowerCase().includes(searchValue.toLowerCase())
   }
+
+  
 
   return (
     <React.Fragment>

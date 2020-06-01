@@ -28,8 +28,7 @@ export default function NavBar() {
   const history = useHistory();
 
   function handleLogout(){
-    history.push('/login')
-    localStorage.setItem('userID',null)
+    localStorage.clear()
   }
 
   if (userID==null) {
@@ -52,7 +51,7 @@ export default function NavBar() {
             <Button color="inherit" href="/create">Rent Product</Button>
             <Button color="inherit" href="/favourites">Favourites</Button>
             <Button color="inherit" href="/my_rentals">My Rentals</Button>
-            <Button color="inherit" onClick={() => handleLogout()}>Sign Out</Button>
+            <Button color="inherit" href="/login">Sign Out</Button>
           </Toolbar>
         </AppBar>
       </div>

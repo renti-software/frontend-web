@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -51,9 +51,12 @@ export default function SignIn() {
   const history = useHistory();
 
   let userID = localStorage.getItem('userID')
-  if(userID != null){
-    history.push('/marketplace')
-  }
+  console.log('user id is:', userID)
+  useEffect(() => {
+    if(userID != null ){
+      //history.push('/marketplace')
+    }
+  }, [])
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
