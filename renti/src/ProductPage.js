@@ -30,6 +30,7 @@ export default class ProductPage extends React.Component {
     this.state = {
       product: {}, 
       location: {},
+      flag_range: false,
       ranges: 
         {
           startDate: new Date(),
@@ -45,11 +46,15 @@ export default class ProductPage extends React.Component {
 
 
   handleProduct(prod_id){
-    fetch(API_URL + this.props.match.params.id)
+    if (this.state.flag_range) {
+      fetch(API_URL + this.props.match.params.id)
       .then(res => res.json())
       .then(result => {
         this.setState({product: result, location: result.location});
       });
+    } else {
+      alert("Choose a date!")
+    }
   }
 
   fetchProduct() {
@@ -63,7 +68,8 @@ export default class ProductPage extends React.Component {
   handleSelect(ranges){
     console.log(ranges);
     this.setState({
-      ranges: ranges.selection
+      ranges: ranges.selection,
+      flag_range : true
     })
     // {
     //   selection: {
