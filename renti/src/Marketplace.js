@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import colors from './Colors';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -7,6 +7,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -69,12 +71,25 @@ export default function Marketplace() {
 
   const [cards, setCards] = useState([]);
   const [searchValue, setSearchValue] = useState('');
+  const [categories, setCategories] = useState(
+    [
+      {label: 'Clothing', value: 'Clothing' },
+      {label: 'Household', value: 'Household' },
+      {label: 'Tools', value: 'Tools' },
+      {label: 'Driving', value: 'Driving' },
+      {label: 'Electronics', value: 'Electronics' },
+      {label: 'Entertainment', value: 'Entertainment' },
+      {label: 'Miscellaneous', value: 'Miscellaneous' },
+    ]
+  )
   const [paramLocation, setParamLocation] = useState('');
   const [paramCategory, setParamCategory] = useState('');
   const [paramMinPrice, setParamMinPrice] = useState('');
   const [paramMaxPrice, setParamMaxPrice] = useState('');
   const [paramOrder, setParamOrder] = useState('');
   const [paramOrderAsc, setParamOrderAsc] = useState('');
+
+
 
   function makeProductRequest() {
     console.log(`Params: \nLocation: ${paramLocation}\nCategory: ${paramCategory}\nMinPrice: ${paramMinPrice}\nMaxPrice: ${paramMaxPrice} `)
@@ -110,7 +125,9 @@ export default function Marketplace() {
       .then(result => {
           console.log(`Products fetched:`)
           console.log(result)
-          setCards(result)
+          if(Array.isArray(result)){
+            setCards(result)
+          }
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
@@ -130,11 +147,6 @@ export default function Marketplace() {
   function handleParamLocation(event) {
     let sv = event.target.value
     setParamLocation(sv)
-  }
-
-  function handleParamCategory(event) {
-    let sv = event.target.value
-    setParamCategory(sv)
   }
 
   function handleParamMinPrice(event) {
@@ -160,6 +172,10 @@ export default function Marketplace() {
   //This renders conditionally using card mapping
   function checkSearchValue(card_name) {
     return card_name.toLowerCase().includes(searchValue.toLowerCase())
+  }
+
+  function handleCategory(event) {
+    setParamCategory(event.value)
   }
 
   return (
@@ -202,9 +218,7 @@ export default function Marketplace() {
                   <IoMdPricetag style={{color: 'white'}}/>
                 </InputGroup.Text>
               </InputGroup.Prepend>
-              <FormControl
-                placeholder="Category"
-                onChange={handleParamCategory.bind(this)}/>
+              <Dropdown value={paramCategory} onChange={(text) => handleCategory(text)} options={categories} placeholder="Select a category" />
               <InputGroup.Prepend>
                 <InputGroup.Text style={{backgroundColor: colors.secondary}}>
                   <IoMdPricetag style={{color: 'white'}}/>
@@ -246,26 +260,28 @@ export default function Marketplace() {
           {/* End hero unit */}
           <Grid container spacing={4}>
             {cards.map((card) => {
-              let linkToProduct = "/product/" + card.id;
+              let image = card.imageLink;
+              if (image==null || image=="") {
+                image = 'https://www.geographicexperiences.com/wp-content/uploads/revslider/home5/placeholder-1200x500.png'
+              };
               return checkSearchValue(card.name) ?
                 <Grid item xs={12} sm={6} md={4}>
-                  <Link to={linkToProduct}>
-                    <Card className={classes.card}>
-                      <CardMedia
-                        className={classes.cardMedia}
-                        image={'https://gitlab.com/uploads/-/system/group/avatar/7865598/icon.png?width=64'}
-                        title="Image title"
-                      />
-                      <CardContent style={{textAlign: 'center'}} className={classes.cardContent}>
-                        <Typography gutterBottom variant="h5" component="h3">
-                          {card.name}
-                        </Typography>
-                      </CardContent>
-                      <CardContent style={{textAlign: 'center'}} className={classes.cardContent}>
-                        <Typography gutterBottom>
-                          {card.location.cityName}, {card.location.country}
-                        </Typography>
-                      </CardContent>
+                  <Card className={classes.card}>
+                    <CardMedia
+                      className={classes.cardMedia}
+                      image={image}
+                      title="Image title"
+                    />
+                    <CardContent style={{textAlign: 'center'}} className={classes.cardContent}>
+                      <Typography gutterBottom variant="h5" component="h3">
+                        {card.name}
+                      </Typography>
+                    </CardContent>
+                    <CardContent style={{textAlign: 'center'}} className={classes.cardContent}>
+                      <Typography gutterBottom>
+                        {card.location.cityName}, {card.location.country}
+                      </Typography>
+                    </CardContent>
                       <Row style={{textAlign: 'center'}}>
                         <CardContent
                           style={{flex: 1, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
@@ -281,7 +297,6 @@ export default function Marketplace() {
                         </CardActions>
                       </Row>
                     </Card>
-                  </Link>
                 </Grid>
                 :
                 <Grid/>
