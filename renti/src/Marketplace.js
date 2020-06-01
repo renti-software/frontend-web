@@ -14,11 +14,11 @@ import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
-import {MdPhone, MdPlace, MdSearch} from "react-icons/md";
+import {MdPhone, MdPlace, MdSearch, MdLooks} from "react-icons/md";
 import {IoMdPricetag} from 'react-icons/io';
 import Row from "react-bootstrap/Row";
 import RentiFooter from "./RentiFooter";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -68,6 +68,7 @@ console.log(API_URL);
 
 export default function Marketplace() {
   const classes = useStyles();
+  const history = useHistory();
 
   const [cards, setCards] = useState([]);
   const [searchValue, setSearchValue] = useState('');
@@ -176,6 +177,11 @@ export default function Marketplace() {
   function handleCategory(event) {
     setParamCategory(event.value)
   }
+
+  function handleProduct(prod_id){
+    history.push(`/product/${prod_id}`)
+  }
+
 
   return (
     <React.Fragment>
@@ -290,8 +296,8 @@ export default function Marketplace() {
                         </CardContent>
                         <CardActions
                           style={{flex: 1, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
-                          <Button size="large" style={{color: 'white', backgroundColor: colors.primary}}>
-                            <MdPhone/>
+                          <Button onClick={() => handleProduct(card.id)} size="large" style={{color: 'white', backgroundColor: colors.primary}}>
+                            <MdSearch/>
                           </Button>
                         </CardActions>
                       </Row>
