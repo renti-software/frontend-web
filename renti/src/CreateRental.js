@@ -81,7 +81,7 @@ export default function SignUp() {
   const [locationName,setLocationName] = useState('')
   const [description,setDescription] = useState('')
   const [cities,setCities] = useState([])
-  const [price,setPrice] = useState(0)
+  const [price,setPrice] = useState(0.0)
   const [imageLink,setImageLink] = useState('')
 
   useEffect( () => {
@@ -167,13 +167,14 @@ export default function SignUp() {
 
   function handleCreate(){
     let userID = localStorage.getItem('userID')
-    let priceParsed = parseFloat(price)
+    // doing to fixed since we are expecting a float
+    let priceParsed = parseFloat(parseFloat(price).toFixed(2))
     console.log('user id is: ', userID)
     console.log('price is:', priceParsed)
     if (userID==null) {
       alert("Login before posting products!")
     } else {
-      if (name=='' || location=='' || category=='' || price=='' || imageLink=='') {
+      if (name=='' || location=='' || category=='' || price=='') {
         alert("Fill in the required information!")
     } else {
         console.log("Fetching:" + `${API_URL}/products`)
@@ -194,7 +195,7 @@ export default function SignUp() {
         },
         body: JSON.stringify({     
           name : name,     
-          price : priceParsed,    
+          price : parseFloat(priceParsed),    
           category : category,
           imageLink : imageLink,
           description : description,
