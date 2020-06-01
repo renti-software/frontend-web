@@ -2,7 +2,16 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import RentiFooter from "./RentiFooter";
+import colors from './Colors';
+import Button from '@material-ui/core/Button';
 import Box from "@material-ui/core/Box";
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Row from "react-bootstrap/Row";
+import {MdPhone, MdPlace, MdSearch, MdLooks} from "react-icons/md";
+import {IoMdPricetag} from 'react-icons/io';
+import {Link, useHistory} from "react-router-dom";
 
 // API stuff
 let API_IP = '192.168.160.62';
@@ -22,6 +31,11 @@ export default class ProductPage extends React.Component {
     this.Product();
   }
 
+
+  handleProduct(prod_id){
+    alert("Prod")
+  }
+
   Product() {
     fetch(API_URL + this.props.match.params.id)
       .then(res => res.json())
@@ -36,7 +50,14 @@ export default class ProductPage extends React.Component {
     console.log(p);
     return (
       <React.Fragment>
+        <Container style={{alignItems:'flex-start',justifyContent:'flex-start', marginTop: 40}}>
+          <Link>Go Back</Link>
+        </Container>
         <Container>
+          <img
+            src={p.imageLink}
+            style={{maxHeight:200}}
+          />
           <Typography variant="h4">
             {p.name}
           </Typography>
@@ -50,6 +71,20 @@ export default class ProductPage extends React.Component {
             {p.description}
           </Typography>
 
+          <Row style={{textAlign: 'center', justifyContent:'center'}}>
+            <CardActions
+              style={{ alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
+              <Button onClick={() => this.addFavourites(p.id)} size="large" style={{color: 'white', backgroundColor: colors.orange}}>
+                Favourite
+              </Button>
+            </CardActions>
+            <CardActions
+              style={{ alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
+              <Button onClick={() => this.handleProduct(p.id)} size="large" style={{color: 'white', backgroundColor: colors.primary}}>
+                Buy
+              </Button>
+            </CardActions>
+          </Row>
 
         </Container>
         <Box mt={5}>
