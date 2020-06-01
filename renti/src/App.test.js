@@ -4,6 +4,9 @@ import App from './App';
 
 //Start using mocks as in this template: testing-library.com/docs/react-testing-library
 
+//Mock user Storage
+localStorage.setItem('userID',1)
+
 test('Render renti marketplace', () => {
   const { getByText } = render(<App />);
   const linkElement = getByText(/Renti Marketplace/i);
