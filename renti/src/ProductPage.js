@@ -44,7 +44,7 @@ export default class ProductPage extends React.Component {
               height="100%"
               src={p.imageLink}
               style={{paddingRight: 16}}/>
-            <div align="start">
+            <div align="start" style={{flex: 1}}>
               <Typography variant="h4">
                 {p.name}
               </Typography>
@@ -58,6 +58,11 @@ export default class ProductPage extends React.Component {
                     return p.description;
                   return "This is a description template, just for test, delete later"
                 })()}
+              </Typography>
+            </div>
+            <div style={{flex: 1}}>
+              <Typography variant="h4">
+                3rd row -> User
               </Typography>
             </div>
           </div>
