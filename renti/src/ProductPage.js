@@ -12,6 +12,9 @@ import Row from "react-bootstrap/Row";
 import {MdPhone, MdPlace, MdSearch, MdLooks} from "react-icons/md";
 import {IoMdPricetag} from 'react-icons/io';
 import {Link, useHistory} from "react-router-dom";
+import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/theme/default.css'; // theme css file
+import { DateRange } from 'react-date-range';
 
 // API stuff
 let API_IP = '192.168.160.62';
@@ -28,7 +31,7 @@ export default class ProductPage extends React.Component {
   }
 
   componentDidMount() {
-    this.Product();
+    this.fetchProduct();
   }
 
 
@@ -40,7 +43,7 @@ export default class ProductPage extends React.Component {
       });
   }
 
-  Product() {
+  fetchProduct() {
     fetch(API_URL + this.props.match.params.id)
       .then(res => res.json())
       .then(result => {
@@ -48,9 +51,27 @@ export default class ProductPage extends React.Component {
       });
   }
 
+  handleSelect(ranges){
+    console.log(ranges);
+    // {
+    //   selection: {
+    //     startDate: [native Date Object],
+    //     endDate: [native Date Object],
+    //   }
+    // }
+  }
+
   render() {
     const p = this.state.product;
     const l = this.state.location;
+
+    //calendar
+    const selectionRange = {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: 'selection',
+    }
+
     console.log(p);
     return (
       <React.Fragment>
@@ -87,7 +108,16 @@ export default class ProductPage extends React.Component {
               </Button>
             </CardActions>
           </Row>
-
+          <DateRange
+            showMonthArrow={false}
+            showDateDisplay={false}
+            showSelectionPreview={false}
+            showMonthAndYearPickers={false}
+            showPreview={false}
+            minDate={new Date()}
+            ranges={[selectionRange]}
+            onChange={this.handleSelect}
+          />
         </Container>
         <Box mt={5}>
           <RentiFooter/>
