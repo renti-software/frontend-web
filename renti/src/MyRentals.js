@@ -97,6 +97,32 @@ export default function MyRentals() {
       }
   }
 
+  function removeProduct(prod_id) {
+    
+    fetch(`${API_URL}/products`,{
+      method : 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({     
+        id : prod_id 
+      })
+    })
+    //here have the user ID to show only his
+      .then(res => res)
+      .then(result => {
+          makeProductRequest()
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          alert("Error deleting products!")
+        }
+      )
+  }
+
   useEffect(() => {
     makeProductRequest()
   }, [])
@@ -159,7 +185,7 @@ export default function MyRentals() {
                       </CardContent>
                       <CardActions
                         style={{flex: 2, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
-                        <Button size="medium" style={{color: 'white', backgroundColor: colors.orange}}>
+                        <Button size="medium" onClick={() => removeProduct(card.id)} style={{color: 'white', backgroundColor: colors.orange}}>
                           Remove
                         </Button>
                       </CardActions>
