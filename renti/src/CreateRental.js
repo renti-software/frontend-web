@@ -210,7 +210,7 @@ export default function SignUp() {
             }
             else { 
                 alert("Product created with success!")
-                history.push('/')
+                history.push('/marketplace')
             }
       })
       .catch((error) => {
