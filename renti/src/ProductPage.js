@@ -67,9 +67,7 @@ export default class ProductPage extends React.Component {
         .then(result => {
             alert("You have requested this product to the owner!")
           },
-          // Note: it's important to handle errors here
-          // instead of a catch() block so that we don't swallow
-          // exceptions from actual bugs in components.
+
           (error) => {
             alert("Error requesting!")
           }
