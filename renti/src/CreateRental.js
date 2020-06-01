@@ -169,6 +169,7 @@ export default function SignUp() {
     let userID = localStorage.getItem('userID')
     let priceParsed = parseFloat(price)
     console.log('user id is: ', userID)
+    console.log('price is:', priceParsed)
     if (userID==null) {
       alert("Login before posting products!")
     } else {
@@ -209,7 +210,7 @@ export default function SignUp() {
             }
             else { 
                 alert("Product created with success!")
-                history.push('/')
+                history.push('/marketplace')
             }
       })
       .catch((error) => {

@@ -106,7 +106,7 @@ export default function MyRentals() {
     if (prod_id==null) {
       alert("Failed to delete product")
     } else {
-    fetch(`${API_URL}/rentals?id=${prod_id}`, {
+    fetch(`${API_URL}/rentals`, {
       method: 'PUT',
       headers: {
         Accept: 'application/json',

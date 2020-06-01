@@ -49,7 +49,7 @@ export default function NavBar() {
           <Toolbar>
             <Button color="inherit" noWrap className={classes.title} align="left" href="/marketplace">Renti Marketplace</Button>
             <Button color="inherit" href="/create">Rent Product</Button>
-            <Button color="inherit" href="/favourites">Favourites</Button>
+            <Button color="inherit" href="/favourites">My Favourites</Button>
             <Button color="inherit" href="/my_rentals">My Rentals</Button>
             <Button color="inherit" href="/login">Sign Out</Button>
           </Toolbar>

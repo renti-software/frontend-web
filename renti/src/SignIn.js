@@ -53,6 +53,7 @@ export default function SignIn() {
   let userID = localStorage.getItem('userID')
   console.log('user id is:', userID)
   useEffect(() => {
+    localStorage.clear()
     if(userID != null ){
       //history.push('/marketplace')
     }

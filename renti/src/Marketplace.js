@@ -14,12 +14,11 @@ import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
-import {MdPhone, MdPlace, MdSearch} from "react-icons/md";
+import {MdPhone, MdPlace, MdSearch, MdLooks} from "react-icons/md";
 import {IoMdPricetag} from 'react-icons/io';
-import {FaGitlab} from 'react-icons/fa';
 import Row from "react-bootstrap/Row";
 import RentiFooter from "./RentiFooter";
-import { isElementOfType } from 'react-dom/test-utils';
+import {Link, useHistory} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -65,15 +64,17 @@ if (process.env.REACT_APP_API_IP) {
 }
 
 const API_URL = "http://" + API_IP + ":8080";
-console.log(API_URL)
+console.log(API_URL);
 
 export default function Marketplace() {
   const classes = useStyles();
+  const history = useHistory();
 
   const [cards, setCards] = useState([]);
   const [searchValue, setSearchValue] = useState('');
   const [categories, setCategories] = useState(
     [
+      {label: 'Select a category', value: ''},
       {label: 'Clothing', value: 'Clothing' },
       {label: 'Household', value: 'Household' },
       {label: 'Tools', value: 'Tools' },
@@ -90,38 +91,33 @@ export default function Marketplace() {
   const [paramOrder, setParamOrder] = useState('');
   const [paramOrderAsc, setParamOrderAsc] = useState('');
 
-
-
   function makeProductRequest() {
     console.log(`Params: \nLocation: ${paramLocation}\nCategory: ${paramCategory}\nMinPrice: ${paramMinPrice}\nMaxPrice: ${paramMaxPrice} `)
     let base_link = `${API_URL}/products?`
-    if (paramLocation!=''){
+    if (paramLocation != '') {
       base_link = base_link + `location=${paramLocation}&`
     }
-    if (paramCategory!=''){
+    if (paramCategory != '') {
       base_link = base_link + `category=${paramCategory}&`
     }
-    if (paramMinPrice!=''){
+    if (paramMinPrice != '') {
       base_link = base_link + `minPrice=${paramMinPrice}&`
-    }
-    else{
+    } else {
       base_link = base_link + `minPrice=0&`
     }
-    if (paramMaxPrice!=''){
+    if (paramMaxPrice != '') {
       base_link = base_link + `maxPrice=${paramMaxPrice}&`
     }
 
-    if (paramOrder!=''){
+    if (paramOrder != '') {
       base_link = base_link + `orderParameter=${paramOrder}&`
-    }
-    else{
+    } else {
       base_link = base_link + `orderParameter=name&`
     }
 
-    if (paramOrderAsc!=''){
+    if (paramOrderAsc != '') {
       base_link = base_link + `order=${paramOrderAsc}`
-    }
-    else{
+    } else {
       base_link = base_link + `order=asc`
     }
     fetch(base_link)
@@ -181,6 +177,11 @@ export default function Marketplace() {
   function handleCategory(event) {
     setParamCategory(event.value)
   }
+
+  function handleProduct(prod_id){
+    history.push(`/product/${prod_id}`)
+  }
+
 
   return (
     <React.Fragment>
@@ -249,7 +250,7 @@ export default function Marketplace() {
               <FormControl
                 placeholder="Ordering filter"
                 onChange={handleParamOrder.bind(this)}/>
-                <InputGroup.Prepend>
+              <InputGroup.Prepend>
                 <InputGroup.Text style={{backgroundColor: colors.secondary}}>
                   <MdPlace style={{color: 'white'}}/>
                 </InputGroup.Text>
@@ -286,21 +287,21 @@ export default function Marketplace() {
                         {card.location.cityName}, {card.location.country}
                       </Typography>
                     </CardContent>
-                    <Row style={{textAlign: 'center'}}>
-                      <CardContent
-                        style={{flex: 1, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
-                        <Typography gutterBottom>
-                          {card.price}€ /day
-                        </Typography>
-                      </CardContent>
-                      <CardActions
-                        style={{flex: 1, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
-                        <Button size="large" style={{color: 'white', backgroundColor: colors.primary}}>
-                          <MdPhone/>
-                        </Button>
-                      </CardActions>
-                    </Row>
-                  </Card>
+                      <Row style={{textAlign: 'center'}}>
+                        <CardContent
+                          style={{flex: 1, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
+                          <Typography gutterBottom>
+                            {card.price}€ /day
+                          </Typography>
+                        </CardContent>
+                        <CardActions
+                          style={{flex: 1, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
+                          <Button onClick={() => handleProduct(card.id)} size="large" style={{color: 'white', backgroundColor: colors.primary}}>
+                            <MdSearch/>
+                          </Button>
+                        </CardActions>
+                      </Row>
+                    </Card>
                 </Grid>
                 :
                 <Grid/>
