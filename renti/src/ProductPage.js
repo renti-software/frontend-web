@@ -1,12 +1,17 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
 import RentiFooter from "./RentiFooter";
+import colors from './Colors';
+import Button from '@material-ui/core/Button';
 import Box from "@material-ui/core/Box";
-import {Button, Container} from "@material-ui/core";
-import Image from "react-bootstrap/Image";
-import Colors from "./Colors";
-import {MdShoppingCart} from "react-icons/all";
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 import Row from "react-bootstrap/Row";
+import {MdPhone, MdPlace, MdSearch, MdLooks} from "react-icons/md";
+import {IoMdPricetag} from 'react-icons/io';
+import {Link, useHistory} from "react-router-dom";
 
 // API stuff
 let API_IP = '192.168.160.62';
@@ -26,6 +31,15 @@ export default class ProductPage extends React.Component {
     this.Product();
   }
 
+
+  handleProduct(prod_id){
+    fetch(API_URL + this.props.match.params.id)
+      .then(res => res.json())
+      .then(result => {
+        this.setState({product: result, location: result.location});
+      });
+  }
+
   Product() {
     fetch(API_URL + this.props.match.params.id)
       .then(res => res.json())
@@ -40,45 +54,39 @@ export default class ProductPage extends React.Component {
     console.log(p);
     return (
       <React.Fragment>
-        <Container style={{paddingTop: 32}}>
-          <div style={{display: 'flex', flexDirection: 'row'}}>
-            <Image
-              width={320}
-              height="100%"
-              src={p.imageLink}
-              style={{flex: 1}}/>
-            <div align="start" style={{flex: 1}}>
-              <Typography variant="h4">
-                {p.name}
-              </Typography>
-              <Typography variant="inherit">
-                {l.cityName}, {l.country}
-              </Typography>
 
-              <Typography variant="body1" style={{paddingTop: 32}}>
-                {(() => {
-                  if (p.description !== null)
-                    return p.description;
-                  return "This is a description template, just for test, delete later"
-                })()}
-              </Typography>
-              <Row style={{alignEnd: true}}>
-                {/*TODO: Align at end - make it more pretty*/}
-                <Typography variant="body2">
-                  {p.price} €
-                </Typography>
-                <Button onClick={() => null} variant="primary" class="btn btn-primary"
-                        style={{backgroundColor: Colors.primary}}>
-                  <MdShoppingCart/>
-                </Button>
-              </Row>
-            </div>
-            <div style={{flex: 1}}>
-              <Typography variant="h4">
-                3rd row -> User
-              </Typography>
-            </div>
-          </div>
+        <Container style={{alignItems:'flex-start',justifyContent:'flex-start', marginTop: 40}}>
+          <img
+            src={p.imageLink}
+            style={{maxHeight:200}}
+          />
+          <Typography variant="h4" style={{marginTop: 20}}>
+            {p.name}
+          </Typography>
+          <Typography variant="body1">
+            {l.cityName}, {l.country}
+          </Typography>
+          <Typography variant="body1">
+            {p.price} €
+          </Typography>
+          <Typography variant="body1">
+            {p.description}
+          </Typography>
+
+          <Row style={{textAlign: 'center', justifyContent:'center'}}>
+            <CardActions
+              style={{ alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
+              <Button onClick={() => this.addFavourites(p.id)} size="large" style={{color: 'white', backgroundColor: colors.orange}}>
+                Favourite
+              </Button>
+            </CardActions>
+            <CardActions
+              style={{ alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
+              <Button onClick={() => this.handleProduct(p.id)} size="large" style={{color: 'white', backgroundColor: colors.primary}}>
+                Buy
+              </Button>
+            </CardActions>
+          </Row>
 
         </Container>
         <Box mt={5}>

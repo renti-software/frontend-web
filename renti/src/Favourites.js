@@ -17,8 +17,6 @@ import {IoMdPricetag, IoMdTrash, IoMdCheckmark} from 'react-icons/io';
 import {FaGitlab} from 'react-icons/fa';
 import Row from "react-bootstrap/Row";
 import RentiFooter from "./RentiFooter";
-import {Link, useHistory} from "react-router-dom";
-
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -66,7 +64,7 @@ if (process.env.REACT_APP_API_IP) {
 const API_URL = "http://" + API_IP + ":8080";
 console.log(API_URL)
 
-export default function MyRentals() {
+export default function Favourites() {
 
   const [cards, setCards] = useState([]);
   const classes = useStyles();
@@ -75,9 +73,9 @@ export default function MyRentals() {
     let userID = localStorage.getItem('userID')
     console.log('user id is: ', userID)
     if (userID==null) {
-      alert("Login to see your rentals.")
+      alert("Login to see your favourites.")
     } else {
-    fetch(`${API_URL}/products?userId=${userID}`)
+    fetch(`${API_URL}/products`)
     //here have the user ID to show only his
       .then(res => res.json())
       .then(result => {
@@ -94,33 +92,7 @@ export default function MyRentals() {
           alert("Error fetching products!")
         }
       )
-      }
-  }
-
-  function removeProduct(prod_id) {
-    
-    fetch(`${API_URL}/products`,{
-      method : 'DELETE',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({     
-        id : prod_id 
-      })
-    })
-    //here have the user ID to show only his
-      .then(res => res)
-      .then(result => {
-          makeProductRequest()
-        },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
-        (error) => {
-          alert("Error deleting products!")
-        }
-      )
+    }
   }
 
   useEffect(() => {
@@ -140,24 +112,18 @@ export default function MyRentals() {
         <div className={classes.heroContent}>
           <Container maxWidth="md">
             <Typography component="h4" variant="h3" align="center" color={colors.secondary} gutterBottom>
-              Check your rentals
-            </Typography>  
-            <Button size="medium" style={{color: 'white', backgroundColor: colors.primary}}>
-                <Link style={{color:'white'}} variant="" to="/rental_requests">
-                  rental requests
-                </Link>
-            </Button>
-                     
+              Favourites
+            </Typography>              
           </Container>
         </div>
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
             {cards.map((card) => {
-              let image = card.imageLink;
-              if (image==null || image=="") {
-                image = 'https://www.geographicexperiences.com/wp-content/uploads/revslider/home5/placeholder-1200x500.png'
-              };
+                let image = card.imageLink;
+                if (image==null || image=="") {
+                    image = 'https://www.geographicexperiences.com/wp-content/uploads/revslider/home5/placeholder-1200x500.png'
+                };
               return checkSearchValue(card.name) ?
                 <Grid item xs={12} sm={6} md={4}>
                   <Card className={classes.card}>
@@ -184,8 +150,14 @@ export default function MyRentals() {
                         </Typography>
                       </CardContent>
                       <CardActions
+                        style={{flex: 1, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
+                        <Button size="small" style={{color: 'white', backgroundColor: colors.primary}}>
+                          Rent
+                        </Button>
+                      </CardActions>
+                      <CardActions
                         style={{flex: 2, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
-                        <Button size="medium" onClick={() => removeProduct(card.id)} style={{color: 'white', backgroundColor: colors.orange}}>
+                        <Button size="small" style={{color: 'white', backgroundColor: colors.orange}}>
                           Remove
                         </Button>
                       </CardActions>
