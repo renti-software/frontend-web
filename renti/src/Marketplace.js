@@ -7,6 +7,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -70,6 +72,17 @@ export default function Marketplace() {
 
   const [cards, setCards] = useState([]);
   const [searchValue, setSearchValue] = useState('');
+  const [categories, setCategories] = useState(
+    [
+      {label: 'Clothing', value: 'Clothing' },
+      {label: 'Household', value: 'Household' },
+      {label: 'Tools', value: 'Tools' },
+      {label: 'Driving', value: 'Driving' },
+      {label: 'Electronics', value: 'Electronics' },
+      {label: 'Entertainment', value: 'Entertainment' },
+      {label: 'Miscellaneous', value: 'Miscellaneous' },
+    ]
+  )
   const [paramLocation, setParamLocation] = useState('');
   const [paramCategory, setParamCategory] = useState('');
   const [paramMinPrice, setParamMinPrice] = useState('');
@@ -140,11 +153,6 @@ export default function Marketplace() {
     setParamLocation(sv)
   }
 
-  function handleParamCategory(event) {
-    let sv = event.target.value
-    setParamCategory(sv)
-  }
-
   function handleParamMinPrice(event) {
     let sv = event.target.value
     setParamMinPrice(sv)
@@ -170,7 +178,9 @@ export default function Marketplace() {
     return card_name.toLowerCase().includes(searchValue.toLowerCase())
   }
 
-  
+  function handleCategory(event) {
+    setParamCategory(event.value)
+  }
 
   return (
     <React.Fragment>
@@ -212,9 +222,7 @@ export default function Marketplace() {
                   <IoMdPricetag style={{color: 'white'}}/>
                 </InputGroup.Text>
               </InputGroup.Prepend>
-              <FormControl
-                placeholder="Category"
-                onChange={handleParamCategory.bind(this)}/>
+              <Dropdown value={paramCategory} onChange={(text) => handleCategory(text)} options={categories} placeholder="Select a category" />
               <InputGroup.Prepend>
                 <InputGroup.Text style={{backgroundColor: colors.secondary}}>
                   <IoMdPricetag style={{color: 'white'}}/>

@@ -71,6 +71,7 @@ export default function SignUp() {
       {label: 'Clothing', value: 'Clothing' },
       {label: 'Household', value: 'Household' },
       {label: 'Tools', value: 'Tools' },
+      {label: 'Driving', value: 'Driving' },
       {label: 'Electronics', value: 'Electronics' },
       {label: 'Entertainment', value: 'Entertainment' },
       {label: 'Miscellaneous', value: 'Miscellaneous' },
