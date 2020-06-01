@@ -27,7 +27,16 @@ let API_URL = "http://" + API_IP + ":8080/products/";
 export default class ProductPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {product: {}, location: {}};
+    this.state = {
+      product: {}, 
+      location: {},
+      ranges: 
+        {
+          startDate: new Date(),
+          endDate: new Date(),
+          key: 'selection',
+        }
+    };
   }
 
   componentDidMount() {
@@ -53,6 +62,9 @@ export default class ProductPage extends React.Component {
 
   handleSelect(ranges){
     console.log(ranges);
+    this.setState({
+      ranges: ranges.selection
+    })
     // {
     //   selection: {
     //     startDate: [native Date Object],
@@ -64,13 +76,6 @@ export default class ProductPage extends React.Component {
   render() {
     const p = this.state.product;
     const l = this.state.location;
-
-    //calendar
-    const selectionRange = {
-      startDate: new Date(),
-      endDate: new Date(),
-      key: 'selection',
-    }
 
     console.log(p);
     return (
@@ -115,8 +120,8 @@ export default class ProductPage extends React.Component {
             showMonthAndYearPickers={false}
             showPreview={false}
             minDate={new Date()}
-            ranges={[selectionRange]}
-            onChange={this.handleSelect}
+            ranges={[this.state.ranges]}
+            onChange={(ranges) => this.handleSelect(ranges)}
           />
         </Container>
         <Box mt={5}>
