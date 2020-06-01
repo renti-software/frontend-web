@@ -1,8 +1,9 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
 import RentiFooter from "./RentiFooter";
 import Box from "@material-ui/core/Box";
+import {Container} from "@material-ui/core";
+import Image from "react-bootstrap/Image";
 
 // API stuff
 let API_IP = '192.168.160.62';
@@ -36,20 +37,30 @@ export default class ProductPage extends React.Component {
     console.log(p);
     return (
       <React.Fragment>
-        <Container>
-          <Typography variant="h4">
-            {p.name}
-          </Typography>
-          <Typography variant="body1">
-            {l.cityName}, {l.country}
-          </Typography>
-          <Typography variant="body1">
-            {p.price} €
-          </Typography>
-          <Typography variant="body1">
-            {p.description}
-          </Typography>
+        <Container style={{paddingTop: 32}}>
+          <div style={{display: 'flex', flexDirection: 'row'}}>
+            <Image
+              width={320}
+              height="100%"
+              src='https://source.unsplash.com/random'
+              style={{paddingRight: 16}}/>
+            <div align="start">
+              <Typography variant="h4">
+                {p.name}
+              </Typography>
+              <Typography variant="body1">
+                {l.cityName}, {l.country}
+              </Typography>
 
+              <Typography variant="body1" style={{paddingTop: 32}}>
+                {(() => {
+                  if (p.description !== null)
+                    return p.description;
+                  return "This is a description template, just for test, delete later"
+                })()}
+              </Typography>
+            </div>
+          </div>
 
         </Container>
         <Box mt={5}>
