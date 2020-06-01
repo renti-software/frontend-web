@@ -73,6 +73,7 @@ export default function Marketplace() {
   const [searchValue, setSearchValue] = useState('');
   const [categories, setCategories] = useState(
     [
+      {label: 'Select a category', value: ''},
       {label: 'Clothing', value: 'Clothing' },
       {label: 'Household', value: 'Household' },
       {label: 'Tools', value: 'Tools' },
@@ -88,8 +89,6 @@ export default function Marketplace() {
   const [paramMaxPrice, setParamMaxPrice] = useState('');
   const [paramOrder, setParamOrder] = useState('');
   const [paramOrderAsc, setParamOrderAsc] = useState('');
-
-
 
   function makeProductRequest() {
     console.log(`Params: \nLocation: ${paramLocation}\nCategory: ${paramCategory}\nMinPrice: ${paramMinPrice}\nMaxPrice: ${paramMaxPrice} `)
