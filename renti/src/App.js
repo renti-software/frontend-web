@@ -16,8 +16,10 @@ function App() {
       <NavBar/>
       <Router>
         <main>
-          <Route path="/" exact component={Marketplace}/>
+          <Route path="/" exact component={SignIn}/>
+          <Route path="/marketplace" exact component={Marketplace}/>
           <Route path="/login" component={SignIn}/>
+          <Route path="/sign_up" component={SignUp}/>
           <Route path="/create" component={CreateRental}/>
           <Route path="/favourites" component={Favourites}/>
           <Route path="/register" component={SignUp}/>

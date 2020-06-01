@@ -17,6 +17,7 @@ import {IoMdPricetag} from 'react-icons/io';
 import {FaGitlab} from 'react-icons/fa';
 import Row from "react-bootstrap/Row";
 import RentiFooter from "./RentiFooter";
+import { isElementOfType } from 'react-dom/test-utils';
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -113,7 +114,9 @@ export default function Marketplace() {
       .then(result => {
           console.log(`Products fetched:`)
           console.log(result)
-          setCards(result)
+          if(Array.isArray(result)){
+            setCards(result)
+          }
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow

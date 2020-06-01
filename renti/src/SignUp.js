@@ -157,7 +157,7 @@ export default function SignUp() {
           else { 
               alert("Account created with success: ", json.id)
               localStorage.setItem('userID', json.id)
-              history.push('/')
+              history.push('/marketplace')
           }
     })
     .catch((error) => {

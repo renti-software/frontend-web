@@ -50,6 +50,11 @@ export default function SignIn() {
   const classes = useStyles();
   const history = useHistory();
 
+  let userID = localStorage.getItem('userID')
+  if(userID != null){
+    history.push('/marketplace')
+  }
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -79,7 +84,7 @@ export default function SignIn() {
             
             alert(`Welcome to Renti, ${json.user.name}`)
             localStorage.setItem('userID', json.user.id)
-            history.push('/')
+            history.push('/marketplace')
             //change route
 
           }
