@@ -22,7 +22,7 @@ if (process.env.REACT_APP_API_IP) {
   API_IP = process.env.REACT_APP_API_IP;
 }
 
-let API_URL = "http://" + API_IP + ":8080/products/";
+let API_URL = "http://" + API_IP + ":8080/";
 
 export default class ProductPage extends React.Component {
   constructor(props) {
@@ -46,19 +46,42 @@ export default class ProductPage extends React.Component {
 
 
   handleProduct(prod_id){
-    if (this.state.flag_range) {
-      fetch(API_URL + this.props.match.params.id)
-      .then(res => res.json())
-      .then(result => {
-        this.setState({product: result, location: result.location});
-      });
+    const userID = localStorage.getItem('userID')
+    if (this.state.flag_range && userID !=null) {
+      fetch(`${API_URL}/rentals`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({   
+          renter : { id: userID},
+          product : { id : prod_id},
+          startDate : this.state.ranges.startDate,
+          endDate : this.state.ranges.endDate,
+          approved: false
+        }
+      )})
+      //here have the user ID to show only his
+        .then(res => res.json())
+        .then(result => {
+            alert("Created rental with success!")
+          },
+          // Note: it's important to handle errors here
+          // instead of a catch() block so that we don't swallow
+          // exceptions from actual bugs in components.
+          (error) => {
+            alert("Error approving!")
+          }
+        );
+        
     } else {
       alert("Choose a date!")
     }
   }
 
   fetchProduct() {
-    fetch(API_URL + this.props.match.params.id)
+    fetch(API_URL + '/products/' + this.props.match.params.id)
       .then(res => res.json())
       .then(result => {
         this.setState({product: result, location: result.location});
