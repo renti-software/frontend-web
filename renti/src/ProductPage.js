@@ -2,8 +2,11 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import RentiFooter from "./RentiFooter";
 import Box from "@material-ui/core/Box";
-import {Container} from "@material-ui/core";
+import {Button, Container} from "@material-ui/core";
 import Image from "react-bootstrap/Image";
+import Colors from "./Colors";
+import {MdShoppingCart} from "react-icons/all";
+import Row from "react-bootstrap/Row";
 
 // API stuff
 let API_IP = '192.168.160.62';
@@ -43,12 +46,12 @@ export default class ProductPage extends React.Component {
               width={320}
               height="100%"
               src={p.imageLink}
-              style={{paddingRight: 16}}/>
+              style={{flex: 1}}/>
             <div align="start" style={{flex: 1}}>
               <Typography variant="h4">
                 {p.name}
               </Typography>
-              <Typography variant="body1">
+              <Typography variant="inherit">
                 {l.cityName}, {l.country}
               </Typography>
 
@@ -59,6 +62,16 @@ export default class ProductPage extends React.Component {
                   return "This is a description template, just for test, delete later"
                 })()}
               </Typography>
+              <Row style={{alignEnd: true}}>
+                {/*TODO: Align at end - make it more pretty*/}
+                <Typography variant="body2">
+                  {p.price} €
+                </Typography>
+                <Button onClick={() => null} variant="primary" class="btn btn-primary"
+                        style={{backgroundColor: Colors.primary}}>
+                  <MdShoppingCart/>
+                </Button>
+              </Row>
             </div>
             <div style={{flex: 1}}>
               <Typography variant="h4">
