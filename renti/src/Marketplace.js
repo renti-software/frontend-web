@@ -91,6 +91,10 @@ export default function Marketplace() {
   const [paramOrder, setParamOrder] = useState('');
   const [paramOrderAsc, setParamOrderAsc] = useState('');
 
+  useEffect(() => {
+    makeProductRequest()
+  }, [])
+
   function makeProductRequest() {
     console.log(`Params: \nLocation: ${paramLocation}\nCategory: ${paramCategory}\nMinPrice: ${paramMinPrice}\nMaxPrice: ${paramMaxPrice} `)
     let base_link = `${API_URL}/products?`
@@ -181,6 +185,8 @@ export default function Marketplace() {
   function handleProduct(prod_id){
     history.push(`/product/${prod_id}`)
   }
+
+
 
 
   return (
