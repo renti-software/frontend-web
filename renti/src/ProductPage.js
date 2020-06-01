@@ -42,7 +42,7 @@ export default class ProductPage extends React.Component {
             <Image
               width={320}
               height="100%"
-              src='https://source.unsplash.com/random'
+              src={p.imageLink}
               style={{paddingRight: 16}}/>
             <div align="start">
               <Typography variant="h4">
