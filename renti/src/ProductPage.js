@@ -45,11 +45,9 @@ export default class ProductPage extends React.Component {
   }
 
   smallerThan4Days(){
-    var date1 = this.state.startDate
-    var date2 = this.state.endDate
 
     // To calculate the time difference of two dates 
-    var Difference_In_Time = date2.getTime() - date1.getTime(); 
+    var Difference_In_Time = this.state.ranges.endDate.getTime() - this.state.ranges.startDate.getTime(); 
       
     // To calculate the no. of days between two dates 
     var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24); 
