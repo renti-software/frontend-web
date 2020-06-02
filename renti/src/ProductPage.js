@@ -62,7 +62,7 @@ export default class ProductPage extends React.Component {
     const userID = localStorage.getItem('userID')
 
     //Rentals for longer than 4 days
-    if (smallerThan4Days()){
+    if (this.smallerThan4Days()){
       if (this.state.flag_range && userID !=null) {
         fetch(`${API_URL}/rentals`, {
           method: 'POST',
