@@ -117,6 +117,35 @@ export default class ProductPage extends React.Component {
     // }
   }
 
+  addFavourites(prod_id){
+    if (userID !=null) {
+      fetch(`${API_URL}/favourites`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({   
+          renter : { id: userID},
+          product : { id : prod_id},
+        }
+      )})
+      //here have the user ID to show only his
+        .then(res => res.json())
+        .then(result => {
+            alert("You have added this product to your favourites!")
+          },
+
+          (error) => {
+            alert("Error adding!")
+          }
+        );
+        
+    } else {
+      alert("Login first!")
+    }
+  }
+
   render() {
     const p = this.state.product;
     const l = this.state.location;
