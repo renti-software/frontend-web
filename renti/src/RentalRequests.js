@@ -84,7 +84,9 @@ export default function MyRentals() {
       .then(result => {
           console.log(`Products fetched:`)
           console.log(result)
-          setCards(result)
+          if(Array.isArray(result)){
+            setCards(result)
+          }
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
