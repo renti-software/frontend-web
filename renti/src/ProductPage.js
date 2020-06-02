@@ -118,6 +118,7 @@ export default class ProductPage extends React.Component {
   }
 
   addFavourites(prod_id){
+    let userID = localStorage.getItem('userID')
     if (userID !=null) {
       fetch(`${API_URL}/favourites`, {
         method: 'POST',
