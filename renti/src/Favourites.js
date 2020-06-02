@@ -75,7 +75,7 @@ export default function Favourites() {
     if (userID==null) {
       alert("Login to see your favourites.")
     } else {
-    fetch(`${API_URL}/products`)
+    fetch(`${API_URL}/favourites/${userID}`)
     //here have the user ID to show only his
       .then(res => res.json())
       .then(result => {
@@ -102,6 +102,36 @@ export default function Favourites() {
   //dumb hardcoded flag to bypass refactoring and precious time
   function checkSearchValue() {
     return true
+  }
+
+  function removeFavourite(prod_id){
+    let userID = localStorage.getItem('userID')
+    if (userID !=null) {
+      fetch(`${API_URL}/favourites`, {
+        method: 'DELETE',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({   
+          user : { id: userID},
+          product : { id : prod_id},
+        }
+      )})
+      //here have the user ID to show only his
+        .then(res => res.json())
+        .then(result => {
+            alert("Deleted from your favourites!")
+          },
+
+          (error) => {
+            alert("Error deleting!")
+          }
+        );
+        
+    } else {
+      alert("Login first!")
+    }
   }
 
   return (
@@ -151,13 +181,13 @@ export default function Favourites() {
                       </CardContent>
                       <CardActions
                         style={{flex: 1, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
-                        <Button size="small" style={{color: 'white', backgroundColor: colors.primary}}>
+                        <Button onClick={() => handleProduct(card.id)} size="small" style={{color: 'white', backgroundColor: colors.primary}}>
                           Rent
                         </Button>
                       </CardActions>
                       <CardActions
                         style={{flex: 2, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
-                        <Button size="small" style={{color: 'white', backgroundColor: colors.orange}}>
+                        <Button onClick={() => removeFavourite(card.id)} size="small"  style={{color: 'white', backgroundColor: colors.orange}}>
                           Remove
                         </Button>
                       </CardActions>
