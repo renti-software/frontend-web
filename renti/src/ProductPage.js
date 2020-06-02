@@ -44,37 +44,56 @@ export default class ProductPage extends React.Component {
     this.fetchProduct();
   }
 
+  smallerThan4Days(){
+    var date1 = this.state.startDate
+    var date2 = this.state.endDate
+
+    // To calculate the time difference of two dates 
+    var Difference_In_Time = date2.getTime() - date1.getTime(); 
+      
+    // To calculate the no. of days between two dates 
+    var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24); 
+
+    return Difference_In_Days <= 4 ? true : false
+  }
+
 
   handleProduct(prod_id){
     const userID = localStorage.getItem('userID')
-    if (this.state.flag_range && userID !=null) {
-      fetch(`${API_URL}/rentals`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({   
-          renter : { id: userID},
-          product : { id : prod_id},
-          startDate : this.state.ranges.startDate,
-          endDate : this.state.ranges.endDate,
-          approved: false
-        }
-      )})
-      //here have the user ID to show only his
-        .then(res => res.json())
-        .then(result => {
-            alert("You have requested this product to the owner!")
-          },
 
-          (error) => {
-            alert("Error requesting!")
+    //Rentals for longer than 4 days
+    if (smallerThan4Days()){
+      if (this.state.flag_range && userID !=null) {
+        fetch(`${API_URL}/rentals`, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({   
+            renter : { id: userID},
+            product : { id : prod_id},
+            startDate : this.state.ranges.startDate,
+            endDate : this.state.ranges.endDate,
+            approved: false
           }
-        );
-        
+        )})
+        //here have the user ID to show only his
+          .then(res => res.json())
+          .then(result => {
+              alert("You have requested this product to the owner!")
+            },
+  
+            (error) => {
+              alert("Error requesting!")
+            }
+          );
+          
+      } else {
+        alert("Choose a date!")
+      }
     } else {
-      alert("Choose a date!")
+      alert("Contact us: info@renti , for discounted prices on rentals longer than 4 days!")
     }
   }
 
