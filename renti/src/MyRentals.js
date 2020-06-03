@@ -112,6 +112,7 @@ export default function MyRentals() {
     //here have the user ID to show only his
       .then(res => res)
       .then(result => {
+          console.log(result)
           makeProductRequest()
         },
         // Note: it's important to handle errors here
