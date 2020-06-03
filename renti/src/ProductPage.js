@@ -127,7 +127,7 @@ export default class ProductPage extends React.Component {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({   
-          renter : { id: userID},
+          user : { id: userID},
           product : { id : prod_id},
         }
       )})

@@ -117,14 +117,14 @@ export default function Favourites() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({   
-          user : { id: userID},
-          product : { id : prod_id},
+          id : prod_id,
         }
       )})
       //here have the user ID to show only his
         .then(res => res.json())
         .then(result => {
             alert("Deleted from your favourites!")
+            makeProductRequest()
           },
 
           (error) => {
@@ -189,7 +189,7 @@ export default function Favourites() {
                       <CardActions
                         style={{flex: 1, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
                         <Button onClick={() => handleProduct(card.id)} size="small" style={{color: 'white', backgroundColor: colors.primary}}>
-                          Rent
+                          Inspect
                         </Button>
                       </CardActions>
                       <CardActions
