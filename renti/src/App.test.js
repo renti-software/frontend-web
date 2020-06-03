@@ -7,6 +7,7 @@ import Marketplace from './Marketplace';
 import {Router} from 'react-router-dom'
 import Favourites from "./Favourites";
 import fetchMock from "fetch-mock";
+import CreateRental from "./CreateRental";
 
 //Start using mocks as in this template: testing-library.com/docs/react-testing-library
 
@@ -65,4 +66,12 @@ test('Render Favourites', () => {
   );
 
   expect(getByText(/Favourites/i)).toBeInTheDocument();
+});
+
+test('Render Create Rental', () => {
+  const {getByText} = render(
+    <CreateRental/>,
+  );
+
+  expect(getByText(/Create a Rental/i)).toBeInTheDocument();
 });
