@@ -99,7 +99,6 @@ export default function MyRentals() {
   }
 
   function approveRental(rental_id){
-      alert("going to approve")
       putApproval(rental_id)
   }
 
@@ -123,6 +122,7 @@ export default function MyRentals() {
       .then(res => res.json())
       .then(result => {
           alert("Approved with success")
+          makeProductRequest()
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
@@ -135,7 +135,6 @@ export default function MyRentals() {
   }
 
   function deleteRental(rental_id){
-    alert("going to delete")
     delApproval(rental_id)
   }
 
@@ -158,6 +157,7 @@ function delApproval(rental_id) {
     .then(res => res)
     .then(result => {
         alert("Deleted with success")
+        makeProductRequest()
       },
       // Note: it's important to handle errors here
       // instead of a catch() block so that we don't swallow
