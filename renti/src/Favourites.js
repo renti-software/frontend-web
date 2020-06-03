@@ -17,6 +17,7 @@ import {IoMdPricetag, IoMdTrash, IoMdCheckmark} from 'react-icons/io';
 import {FaGitlab} from 'react-icons/fa';
 import Row from "react-bootstrap/Row";
 import RentiFooter from "./RentiFooter";
+import {useHistory} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -68,6 +69,8 @@ export default function Favourites() {
 
   const [cards, setCards] = useState([]);
   const classes = useStyles();
+   
+  const history = useHistory();
 
   function makeProductRequest() {
     let userID = localStorage.getItem('userID')
@@ -75,7 +78,7 @@ export default function Favourites() {
     if (userID==null) {
       alert("Login to see your favourites.")
     } else {
-    fetch(`${API_URL}/products`)
+    fetch(`${API_URL}/favourites/${userID}`)
     //here have the user ID to show only his
       .then(res => res.json())
       .then(result => {
@@ -104,6 +107,40 @@ export default function Favourites() {
     return true
   }
 
+  function removeFavourite(prod_id){
+    let userID = localStorage.getItem('userID')
+    if (userID !=null) {
+      fetch(`${API_URL}/favourites`, {
+        method: 'DELETE',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({   
+          id : prod_id,
+        }
+      )})
+      //here have the user ID to show only his
+        .then(res => res.json())
+        .then(result => {
+            alert("Deleted from your favourites!")
+            makeProductRequest()
+          },
+
+          (error) => {
+            alert("Error deleting!")
+          }
+        );
+        
+    } else {
+      alert("Login first!")
+    }
+  }
+
+  function handleProduct(prod_id){
+    history.push(`/product/${prod_id}`)
+  }
+
   return (
     <React.Fragment>
       <CssBaseline/>
@@ -120,11 +157,11 @@ export default function Favourites() {
           {/* End hero unit */}
           <Grid container spacing={4}>
             {cards.map((card) => {
-                let image = card.imageLink;
+                let image = card.product.imageLink;
                 if (image==null || image=="") {
                     image = 'https://www.geographicexperiences.com/wp-content/uploads/revslider/home5/placeholder-1200x500.png'
                 };
-              return checkSearchValue(card.name) ?
+              return checkSearchValue(card.product.name) ?
                 <Grid item xs={12} sm={6} md={4}>
                   <Card className={classes.card}>
                     <CardMedia
@@ -134,30 +171,30 @@ export default function Favourites() {
                     />
                     <CardContent style={{textAlign: 'center'}} className={classes.cardContent}>
                       <Typography gutterBottom variant="h5" component="h3">
-                        {card.name}
+                        {card.product.name}
                       </Typography>
                     </CardContent>
                     <CardContent style={{textAlign: 'center'}} className={classes.cardContent}>
                       <Typography gutterBottom>
-                        {card.location.cityName}, {card.location.country}
+                        {card.product.location.cityName}, {card.product.location.country}
                       </Typography>
                     </CardContent>
                     <Row style={{textAlign: 'center'}}>
                       <CardContent
                         style={{flex: 2, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
                         <Typography gutterBottom>
-                          {card.price}€ /day
+                          {card.product.price}€ /day
                         </Typography>
                       </CardContent>
                       <CardActions
                         style={{flex: 1, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
-                        <Button size="small" style={{color: 'white', backgroundColor: colors.primary}}>
-                          Rent
+                        <Button onClick={() => handleProduct(card.product.id)} size="small" style={{color: 'white', backgroundColor: colors.primary}}>
+                          Inspect
                         </Button>
                       </CardActions>
                       <CardActions
                         style={{flex: 2, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
-                        <Button size="small" style={{color: 'white', backgroundColor: colors.orange}}>
+                        <Button onClick={() => removeFavourite(card.id)} size="small"  style={{color: 'white', backgroundColor: colors.orange}}>
                           Remove
                         </Button>
                       </CardActions>
