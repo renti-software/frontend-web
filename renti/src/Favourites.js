@@ -17,6 +17,7 @@ import {IoMdPricetag, IoMdTrash, IoMdCheckmark} from 'react-icons/io';
 import {FaGitlab} from 'react-icons/fa';
 import Row from "react-bootstrap/Row";
 import RentiFooter from "./RentiFooter";
+import {useHistory} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -68,6 +69,8 @@ export default function Favourites() {
 
   const [cards, setCards] = useState([]);
   const classes = useStyles();
+   
+  const history = useHistory();
 
   function makeProductRequest() {
     let userID = localStorage.getItem('userID')
@@ -132,6 +135,10 @@ export default function Favourites() {
     } else {
       alert("Login first!")
     }
+  }
+
+  function handleProduct(prod_id){
+    history.push(`/product/${prod_id}`)
   }
 
   return (
