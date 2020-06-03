@@ -5,6 +5,8 @@ import '@testing-library/jest-dom/extend-expect'
 import App from './App';
 import Marketplace from './Marketplace';
 import {Router} from 'react-router-dom'
+import Favourites from "./Favourites";
+import fetchMock from "fetch-mock";
 
 //Start using mocks as in this template: testing-library.com/docs/react-testing-library
 
@@ -55,4 +57,12 @@ test('Login goes to Sign Up', () => {
 
   expect(newElement).toBeInTheDocument();
 
+});
+
+test('Render Favourites', () => {
+  const {getByText} = render(
+    <Favourites/>,
+  );
+
+  expect(getByText(/Favourites/i)).toBeInTheDocument();
 });
