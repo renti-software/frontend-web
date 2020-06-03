@@ -112,6 +112,10 @@ export default function MyRentals() {
     //here have the user ID to show only his
       .then(res => res)
       .then(result => {
+          //Cant remove, because there's connections to product
+          if (result.status == 404){
+            alert("You can't delete this product, since it is/will be rented.")
+          }
           console.log(result)
           makeProductRequest()
         },
