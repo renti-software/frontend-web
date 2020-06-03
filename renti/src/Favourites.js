@@ -157,11 +157,11 @@ export default function Favourites() {
           {/* End hero unit */}
           <Grid container spacing={4}>
             {cards.map((card) => {
-                let image = card.imageLink;
+                let image = card.product.imageLink;
                 if (image==null || image=="") {
                     image = 'https://www.geographicexperiences.com/wp-content/uploads/revslider/home5/placeholder-1200x500.png'
                 };
-              return checkSearchValue(card.name) ?
+              return checkSearchValue(card.product.name) ?
                 <Grid item xs={12} sm={6} md={4}>
                   <Card className={classes.card}>
                     <CardMedia
@@ -171,24 +171,24 @@ export default function Favourites() {
                     />
                     <CardContent style={{textAlign: 'center'}} className={classes.cardContent}>
                       <Typography gutterBottom variant="h5" component="h3">
-                        {card.name}
+                        {card.product.name}
                       </Typography>
                     </CardContent>
                     <CardContent style={{textAlign: 'center'}} className={classes.cardContent}>
                       <Typography gutterBottom>
-                        {card.location.cityName}, {card.location.country}
+                        {card.product.location.cityName}, {card.product.location.country}
                       </Typography>
                     </CardContent>
                     <Row style={{textAlign: 'center'}}>
                       <CardContent
                         style={{flex: 2, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
                         <Typography gutterBottom>
-                          {card.price}€ /day
+                          {card.product.price}€ /day
                         </Typography>
                       </CardContent>
                       <CardActions
                         style={{flex: 1, alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
-                        <Button onClick={() => handleProduct(card.id)} size="small" style={{color: 'white', backgroundColor: colors.primary}}>
+                        <Button onClick={() => handleProduct(card.product.id)} size="small" style={{color: 'white', backgroundColor: colors.primary}}>
                           Inspect
                         </Button>
                       </CardActions>
