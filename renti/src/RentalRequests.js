@@ -78,7 +78,7 @@ export default function MyRentals() {
     if (userID==null) {
       alert("Login to see your rentals.")
     } else {
-    fetch(`${API_URL}/products?userId=${userID}`)
+    fetch(`${API_URL}/rentals?ownerId=${userID}&approved=false`)
     //here have the user ID to show only his
       .then(res => res.json())
       .then(result => {
@@ -98,15 +98,14 @@ export default function MyRentals() {
       }
   }
 
-  function approveRental(){
-      alert("going to approve")
-      putApproval()
+  function approveRental(rental_id){
+      putApproval(rental_id)
   }
 
   //PUT, change product approval to true
-  function putApproval(prod_id) {
-    if (prod_id==null) {
-      alert("Failed to delete product")
+  function putApproval(rental_id) {
+    if (rental_id==null) {
+      alert("Failed to approve rental")
     } else {
     fetch(`${API_URL}/rentals`, {
       method: 'PUT',
@@ -115,7 +114,7 @@ export default function MyRentals() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({     
-        id : prod_id,     
+        id : rental_id,     
         approved : true,    
       }
     )})
@@ -123,6 +122,7 @@ export default function MyRentals() {
       .then(res => res.json())
       .then(result => {
           alert("Approved with success")
+          makeProductRequest()
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
@@ -134,33 +134,36 @@ export default function MyRentals() {
       }
   }
 
-  function deleteRental(){
-    alert("going to delete")
-    delApproval()
+  function deleteRental(rental_id){
+    delApproval(rental_id)
   }
 
 //PUT, change product approval to true
-function delApproval(prod_id) {
-  if (prod_id==null) {
-    alert("Failed to delete product")
+function delApproval(rental_id) {
+  if (rental_id==null) {
+    alert("Failed to delete rental")
   } else {
-  fetch(`${API_URL}/rentals?id=${prod_id}`, {
+  fetch(`${API_URL}/rentals`, {
     method: 'DELETE',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
+    body: JSON.stringify({     
+        id : rental_id,     
+      })
     })
   //here have the user ID to show only his
-    .then(res => res.json())
+    .then(res => res)
     .then(result => {
         alert("Deleted with success")
+        makeProductRequest()
       },
       // Note: it's important to handle errors here
       // instead of a catch() block so that we don't swallow
       // exceptions from actual bugs in components.
       (error) => {
-        alert("Error fetching products!")
+        alert("Error deleting rentals!")
       }
     )
     }
@@ -194,11 +197,13 @@ function delApproval(prod_id) {
           {/* End hero unit */}
           <Grid container spacing={4}>
             {cards.map((card) => {
-              let image = card.imageLink;
+              console.log("EACH CARD SHOWS: ")
+              console.log(card)
+              let image = card.product.imageLink;
               if (image==null || image=="") {
                 image = 'https://www.geographicexperiences.com/wp-content/uploads/revslider/home5/placeholder-1200x500.png'
               };
-              return checkSearchValue(card.name) ?
+              return checkSearchValue(card.product.name) ?
                 <Grid item xs={12} sm={6} md={4}>
                   <Card className={classes.card}>
                     <CardMedia
@@ -208,15 +213,15 @@ function delApproval(prod_id) {
                     />
                     <CardContent style={{textAlign: 'center'}} className={classes.cardContent}>
                       <Typography gutterBottom variant="h5" component="h3">
-                        {card.name}
+                        {card.product.name}
                       </Typography>
                     </CardContent>
                     <CardContent style={{textAlign: 'center'}} className={classes.cardContent}>
                       <Typography gutterBottom>
-                        31/05/2020 to 03/06/2020
+                        {card.startDate} to {card.endDate}
                       </Typography>
                       <Typography gutterBottom>
-                        From: Tomas Costa
+                        From user: {card.renter.name} 
                       </Typography>
                     </CardContent>
                     <Row style={{textAlign: 'center'}}>
