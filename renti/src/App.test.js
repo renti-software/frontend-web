@@ -8,6 +8,8 @@ import {Router} from 'react-router-dom'
 import Favourites from "./Favourites";
 import fetchMock from "fetch-mock";
 import CreateRental from "./CreateRental";
+import MyRentals from "./MyRentals";
+import RentalRequests from "./RentalRequests";
 
 //Start using mocks as in this template: testing-library.com/docs/react-testing-library
 
@@ -74,4 +76,24 @@ test('Render Create Rental', () => {
   );
 
   expect(getByText(/Create a Rental/i)).toBeInTheDocument();
+});
+
+test('Routing rentals', () => {
+  // localStorage.setItem('userID', 1);
+  const history = createMemoryHistory()
+  history.push('/my_rentals')
+  const {container, getByText} = render(
+    <Router history={history}>
+      <MyRentals/>
+      <RentalRequests/>
+    </Router>
+  );
+
+  const linkElement = getByText(/Rental Requests/i);
+  expect(linkElement).toBeInTheDocument();
+
+  fireEvent.click(linkElement);
+
+  const newElement = getByText(/Go back to rentals/i);
+  expect(newElement).toBeInTheDocument();
 });
